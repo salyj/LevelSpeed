@@ -1,0 +1,44 @@
+## Note: 0.1.1 - Updated original addon by Khileez and Prochilles to Anniversary TBC
+## Note: 0.1.2 - Fixed bug resulting in kills to level displaying NaN on quest turn-in
+## Note: 0.2.0 - Added Slash Commands
+
+--------------
+Version 0.1.0
+--------------
+
+Original release of addon by Khileez and Prochilles.
+
+--------------
+Version 0.1.1
+--------------
+
+    - Updated interface to version 20505 (Anniversary TBC).
+    - Updated maxXP values for levels 1-60.
+    - Added maxXP values for levels 61-70.
+
+--------------
+Version 0.1.2
+--------------
+
+    - Fixed bug causing addon to display "NaN" for kills to level on quest turn-in.
+    - Fixed bug causing addon to not calculate correct values when a quest turn-in resulted in a level-up.
+    - Fixed bug causing addon to display "NaN" for kills to level when turning in a quest before killing enemies or after resetting addon calculations.
+
+--------------
+Version 0.2.0
+--------------
+
+    - Added slash commands:
+        /lsreset - Resets addon calculations.
+        /lshide  - Hides addon frame.
+        /lsshow  - Shows addon frame.
+        /lsversion - Prints current addon version.
+        /lshelp  - Prints list of slash commands.
+    - Removed maxXP array dependency for kills to level and time to level calculations.
+        - Now using built-in UnitXPMax function to get max XP for current level.
+    - Separated Frame and Commands out to their own files in accordance with MVC design pattern.
+    - Modified Frame logic to adjust based on elements being shown/hidden.
+    - Added logic to show/hide elements.
+    - Added tracking for total XP and last kill XP.
+    - Added dynamic Frame resizing and layout based on shown elements.
+    - Reimplemented TBC maxXP table for total XP calculations.
