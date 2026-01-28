@@ -1,11 +1,24 @@
---print(1)
+LevelSpeed = LibStub("AceAddon-3.0"):NewAddon("LevelSpeed")
+
+function LevelSpeed:OnInitialize()
+	LSCreate_Elements()
+end
+
+function OnLogin()
+	loginTime = time()
+	loginMoney = GetMoney()
+	if lsElements.showTotalXP then
+		totalXPValue:SetText(calculateTotalXP())
+	end
+end
 
 round = false
 lastKillXP = 0
 justLeveledUp = false
+currentMoney = 0
+deltaMoney = 0
 
 function getStuff()
---print("test")
 _XP = 0
 start = time()
 --
@@ -15,11 +28,17 @@ mob_xp = 0
 lastKill = 0
 countKills = 0
 reset = 0
+currentMoney = GetMoney()
+deltaMoney = 0
+
+loginMoney = GetMoney()
+loginTime = time()
 --
 updateNums()
+print("\124cffff0000Level Speed: Reset complete.\124r")
 
 end
---print("1b")
+
 function getStuff2()
 	start2 = time()
 	mob_xp = 0
@@ -42,7 +61,6 @@ function calculateTotalXP()
 	return totalXP
 end
 
---print("1c")
 
 
 local eventFrame = CreateFrame("Frame")
@@ -51,6 +69,8 @@ eventFrame:RegisterEvent("CHAT_MSG_SYSTEM")
 eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
 eventFrame:RegisterEvent("PLAYER_LEVEL_UP")
 eventFrame:RegisterEvent("PLAYER_XP_UPDATE")
+eventFrame:RegisterEvent("PLAYER_MONEY")
+eventFrame:RegisterEvent("ADDON_LOADED")
 eventFrame:SetScript("OnEvent", function(a,b,c,d,e,f,g,h,i,j)
 
 if  b == "CHAT_MSG_SYSTEM" and string.find(c, "Experience gained:") then
@@ -99,7 +119,6 @@ if b == "PLAYER_XP_UPDATE" then
 end
 
 if b == "PLAYER_REGEN_DISABLED" then
---print("test")
 	if start2 == 0 then
 		start2 = time()
 	end
@@ -110,49 +129,62 @@ if b == "PLAYER_REGEN_DISABLED" then
 		end
 		getStuff2()
 	end
---print("test1")
 end
-
---print("1d")
 
 if b == "CHAT_MSG_COMBAT_XP_GAIN"then
-if string.find(c, " dies," ) then
-	_,c  = string.split(",",c,2)
-	_,_,_,c,_ = string.split(" ",c,5)
-	--print(c)
-	_XP = _XP + c
-	--print(_XP)
-	mob_xp = mob_xp + c
+	if string.find(c, " dies," ) then
+		_,c  = string.split(",",c,2)
+		_,_,_,c,_ = string.split(" ",c,5)
+		_XP = _XP + c
+		mob_xp = mob_xp + c
 
-	if lsElements.showLastKillXP then
-		lastKillXP = c;
-		lastKillXPValue:SetText(lastKillXP)
+		if lsElements.showLastKillXP then
+			lastKillXP = c;
+			lastKillXPValue:SetText(lastKillXP)
+		end
+		
+		lastKill = time()
+		countKills = countKills + 1
+
+		if lsElements.showKillsToLevel then
+			kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")+c))/(mob_xp / countKills)*100)/100))
+		end
+
+		if lsElements.showFarmXPS then
+			xpps3:SetText(math.floor(mob_xp / (time() -start2)*100)/100)
+		end
+		updateNums()
+	else
+		_,_,c,_ = string.split(" ",c,4)
+		_XP = _XP + c
+		
+		updateNums()
+
 	end
-	
-	lastKill = time()
-	countKills = countKills + 1
-
-	if lsElements.showKillsToLevel then
-		kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")+c))/(mob_xp / countKills)*100)/100))
-	end
-
-	if lsElements.showFarmXPS then
-		xpps3:SetText(math.floor(mob_xp / (time() -start2)*100)/100)
-	end
-	updateNums()
-else
-	_,_,c,_ = string.split(" ",c,4)
-	--print(c)
-	_XP = _XP + c
-	--print(_XP)
-	
-	updateNums()
-
 end
+
+if b == "ADDON_LOADED" and c == "LevelSpeed" then
+	OnLogin()
+end
+
+if b == "PLAYER_MONEY" then
+	-- print("You earned "..GetMoney() - currentMoney.." copper at"..time()..".")
+	-- print("You have earned "..(((GetMoney() - loginMoney) / (time() - loginTime)) * 60 * 60).." copper per hour since login.")
+
+	deltaMoney = (((GetMoney() - loginMoney) / (time() - loginTime)) * 60 * 60)
+
+	deltaGold = math.floor(deltaMoney / 10000)
+	deltaSilver = math.floor((deltaMoney % 10000) / 100)
+	deltaCopper = math.floor(deltaMoney % 100)
+
+	if lsElements.showGoldPerHour then
+		goldPerHourValue:SetText(deltaGold.."g "..deltaSilver.."s "..deltaCopper.."c")
+	end
+
+    currentMoney = GetMoney()
 end
 
 end)
---print("1e")
 function updateNums()
 
 	if reset == 0 then
@@ -168,13 +200,21 @@ function updateNums()
 		if lsElements.showFarmXPS then
 			xpps3:SetText(0)
 		end
+		if lsElements.showLastKillXP then
+			lastKillXPValue:SetText(0)
+		end
+		if lsElements.showTotalXP then
+			totalXPValue:SetText(calculateTotalXP())
+		end
+		if lsElements.showGoldPerHour then
+			goldPerHourValue:SetText("0g 0s 0c")
+		end
 		
 		reset = reset +1
 	else
 
 
 
-	--print("b")
 	diffTime = time() - start 
 	_XPS = _XP / diffTime
 	if lsElements.showAllXPS then
@@ -191,5 +231,3 @@ function updateNums()
 	
 	end
 end
-
-getStuff()

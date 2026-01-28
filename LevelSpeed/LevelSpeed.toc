@@ -1,20 +1,19 @@
 ## Interface: 20505
 
 ## Title: Level Speed - Anniversary Edition
-## Version: 0.2.0
+## Version: 0.3.1
 
 ## Author: HKRob
 
 ## Note: Huge thanks to Khileez and Prochilles for their work on the original addon
 
 ## SavedVariables: 
-## SavedVariablesPerCharacter: 
+## SavedVariablesPerCharacter: lsElements
 
+embeds.xml
 
 LevelSpeedData.lua
 LevelSpeedFrame.lua
 LevelSpeed.lua
 LevelSpeedCmds.lua
-
-
-
+LevelSpeedOptions.lua

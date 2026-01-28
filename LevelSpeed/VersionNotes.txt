@@ -1,12 +1,8 @@
-## Note: 0.1.1 - Updated original addon by Khileez and Prochilles to Anniversary TBC
-## Note: 0.1.2 - Fixed bug resulting in kills to level displaying NaN on quest turn-in
-## Note: 0.2.0 - Added Slash Commands
-
 --------------
 Version 0.1.0
 --------------
 
-Original release of addon by Khileez and Prochilles.
+Original functionality based on addon by Khileez and Prochilles.
 
 --------------
 Version 0.1.1
@@ -42,3 +38,18 @@ Version 0.2.0
     - Added tracking for total XP and last kill XP.
     - Added dynamic Frame resizing and layout based on shown elements.
     - Reimplemented TBC maxXP table for total XP calculations.
+
+--------------
+Version 0.3.0
+--------------
+
+    - Added Options menu to toggle tracked info
+    - Added Gold/Hour tracking
+
+--------------
+Version 0.3.1
+--------------
+    - Fixed Gold Per Hour calculations
+    - Adjusted main frame size to better accomodate gold per Hour
+    - Fixed bug causing wrong version to show when using command /lsversion
+    - Implemented On Load functions to auto-calculate and set total exp and gold per hour defaults
