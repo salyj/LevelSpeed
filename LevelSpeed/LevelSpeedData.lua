@@ -1,4 +1,4 @@
-lsTBCLevelMaxXP = {
+LVLSPD_lsTBCLevelMaxXP = {
     [1] = 400,
     [2] = 900,
     [3] = 1400,

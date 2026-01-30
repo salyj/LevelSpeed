@@ -1,24 +1,23 @@
 --------------
-Version 0.1.0
+Version 0.3.2
 --------------
-
-Original functionality based on addon by Khileez and Prochilles.
-
---------------
-Version 0.1.1
---------------
-
-    - Updated interface to version 20505 (Anniversary TBC).
-    - Updated maxXP values for levels 1-60.
-    - Added maxXP values for levels 61-70.
+    - Fixed namespace issues to prevent conflicts with other addons
+    - Fixed bug that displayed "Level Speed: Reset Complete" upon load
 
 --------------
-Version 0.1.2
+Version 0.3.1
+--------------
+    - Fixed Gold Per Hour calculations
+    - Adjusted main frame size to better accomodate gold per Hour
+    - Fixed bug causing wrong version to show when using command /lsversion
+    - Implemented On Load functions to auto-calculate and set total exp and gold per hour defaults
+
+--------------
+Version 0.3.0
 --------------
 
-    - Fixed bug causing addon to display "NaN" for kills to level on quest turn-in.
-    - Fixed bug causing addon to not calculate correct values when a quest turn-in resulted in a level-up.
-    - Fixed bug causing addon to display "NaN" for kills to level when turning in a quest before killing enemies or after resetting addon calculations.
+    - Added Options menu to toggle tracked info
+    - Added Gold/Hour tracking
 
 --------------
 Version 0.2.0
@@ -40,16 +39,23 @@ Version 0.2.0
     - Reimplemented TBC maxXP table for total XP calculations.
 
 --------------
-Version 0.3.0
+Version 0.1.2
 --------------
 
-    - Added Options menu to toggle tracked info
-    - Added Gold/Hour tracking
+    - Fixed bug causing addon to display "NaN" for kills to level on quest turn-in.
+    - Fixed bug causing addon to not calculate correct values when a quest turn-in resulted in a level-up.
+    - Fixed bug causing addon to display "NaN" for kills to level when turning in a quest before killing enemies or after resetting addon calculations.
 
 --------------
-Version 0.3.1
+Version 0.1.1
 --------------
-    - Fixed Gold Per Hour calculations
-    - Adjusted main frame size to better accomodate gold per Hour
-    - Fixed bug causing wrong version to show when using command /lsversion
-    - Implemented On Load functions to auto-calculate and set total exp and gold per hour defaults
+
+    - Updated interface to version 20505 (Anniversary TBC).
+    - Updated maxXP values for levels 1-60.
+    - Added maxXP values for levels 61-70.
+
+--------------
+Version 0.1.0
+--------------
+
+Original functionality based on addon by Khileez and Prochilles.

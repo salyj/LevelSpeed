@@ -1,9 +1,10 @@
-versionNumber = "0.3.1"
+LVLSPD_versionNumber = "0.3.2"
 
 SLASH_LevelSpeed_ResetFrame1 = "/lsreset"
 
 function LevelSpeed_ResetFrame()
-	getStuff()
+	LVLSPD_getStuff()
+    print("\124cffff0000Level Speed: Reset complete.\124r")
 end
 
 SlashCmdList["LevelSpeed_ResetFrame"] = LevelSpeed_ResetFrame
@@ -11,7 +12,7 @@ SlashCmdList["LevelSpeed_ResetFrame"] = LevelSpeed_ResetFrame
 SLASH_LevelSpeed_Hide1 = "/lshide"
 
 function LevelSpeed_Hide()
-    mainFrame:Hide()
+    LVLSPD_mainFrame:Hide()
 end
 
 SlashCmdList["LevelSpeed_Hide"] = LevelSpeed_Hide
@@ -19,7 +20,7 @@ SlashCmdList["LevelSpeed_Hide"] = LevelSpeed_Hide
 SLASH_LevelSpeed_Show1 = "/lsshow"
 
 function LevelSpeed_Show()
-    mainFrame:Show()
+    LVLSPD_mainFrame:Show()
 end
 
 SlashCmdList["LevelSpeed_Show"] = LevelSpeed_Show
@@ -27,7 +28,7 @@ SlashCmdList["LevelSpeed_Show"] = LevelSpeed_Show
 SLASH_LevelSpeed_Version1 = "/lsversion"
 
 function LevelSpeed_Version()
-    print("\124cffff0000Level Speed Version: "..versionNumber.."\124r")
+    print("\124cffff0000Level Speed Version: "..LVLSPD_versionNumber.."\124r")
 end
 
 SlashCmdList["LevelSpeed_Version"] = LevelSpeed_Version

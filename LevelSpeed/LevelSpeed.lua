@@ -1,58 +1,57 @@
 LevelSpeed = LibStub("AceAddon-3.0"):NewAddon("LevelSpeed")
 
 function LevelSpeed:OnInitialize()
-	LSCreate_Elements()
+	LVLSPD_LSCreate_Elements()
 end
 
-function OnLogin()
-	loginTime = time()
-	loginMoney = GetMoney()
-	if lsElements.showTotalXP then
-		totalXPValue:SetText(calculateTotalXP())
+function LVLSPD_OnLogin()
+	LVLSPD_loginTime = time()
+	LVLSPD_loginMoney = GetMoney()
+	if LVLSPD_lsElements.showTotalXP then
+		LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
 	end
 end
 
-round = false
-lastKillXP = 0
-justLeveledUp = false
-currentMoney = 0
-deltaMoney = 0
+LVLSPD_round = false
+LVLSPD_lastKillXP = 0
+LVLSPD_justLeveledUp = false
+LVLSPD_currentMoney = 0
+LVLSPD_deltaMoney = 0
 
-function getStuff()
-_XP = 0
-start = time()
+function LVLSPD_getStuff()
+LVLSPD_XP = 0
+LVLSPD_start = time()
 --
 
-start2 = 0
-mob_xp = 0
-lastKill = 0
-countKills = 0
-reset = 0
-currentMoney = GetMoney()
-deltaMoney = 0
+LVLSPD_start2 = 0
+LVLSPD_mob_xp = 0
+LVLSPD_lastKill = 0
+LVLSPD_countKills = 0
+LVLSPD_reset = 0
+LVLSPD_currentMoney = GetMoney()
+LVLSPD_deltaMoney = 0
 
-loginMoney = GetMoney()
-loginTime = time()
+LVLSPD_loginMoney = GetMoney()
+LVLSPD_loginTime = time()
 --
-updateNums()
-print("\124cffff0000Level Speed: Reset complete.\124r")
+LVLSPD_updateNums()
 
 end
 
-function getStuff2()
-	start2 = time()
-	mob_xp = 0
-	lastKill = 0
-	countKills = 0
+function LVLSPD_getStuff2()
+	LVLSPD_start2 = time()
+	LVLSPD_mob_xp = 0
+	LVLSPD_lastKill = 0
+	LVLSPD_countKills = 0
 
 end
 
-function calculateTotalXP()
+function LVLSPD_calculateTotalXP()
 	local levelIterator = 1
 	local totalXP = 0
 	
 	while(levelIterator < UnitLevel("player")) do
-		totalXP = totalXP + lsTBCLevelMaxXP[levelIterator]
+		totalXP = totalXP + LVLSPD_lsTBCLevelMaxXP[levelIterator]
 		levelIterator = levelIterator + 1
 	end
 
@@ -78,56 +77,56 @@ if  b == "CHAT_MSG_SYSTEM" and string.find(c, "Experience gained:") then
 	c,_ = string.split(".",c,2)
 	
 	if (UnitXPMax("player") - UnitXP("player")) > tonumber(c) then
-		if lsElements.showKillsToLevel then
-			if mob_xp > 0 and countKills > 0 then
-				kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")))/(mob_xp / countKills)*100)/100))
+		if LVLSPD_lsElements.showKillsToLevel then
+			if LVLSPD_mob_xp > 0 and LVLSPD_countKills > 0 then
+				LVLSPD_kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")))/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100))
 				--xpps3:SetText(math.floor(mob_xp / (time() -start2)*100)/100)
 			else
-				kills_toLevel2:SetText(0)
+				LVLSPD_kills_toLevel2:SetText(0)
 			end
 		end
 	end
 	
 end
 if b == "PLAYER_LEVEL_UP" then
-	justLeveledUp = true
+	LVLSPD_justLeveledUp = true
 	
 end
 
 if b == "PLAYER_XP_UPDATE" then
-	if justLeveledUp == true then
+	if LVLSPD_justLeveledUp == true then
 		local newLevelMaxXP = UnitXPMax("player")
 		
-		if lsElements.showTimeToLevel then
-			if _XPS > 0 then
-				kills_toLevel:SetText( math.floor(newLevelMaxXP / _XPS / 60*100)/100 )
+		if LVLSPD_lsElements.showTimeToLevel then
+			if LVLSPD_XPS > 0 then
+				LVLSPD_kills_toLevel:SetText( math.floor(newLevelMaxXP / LVLSPD_XPS / 60*100)/100 )
 			end
 		end
-		if lsElements.showKillsToLevel then
-			if mob_xp > 0 and countKills > 0 then
-				kills_toLevel2:SetText(math.ceil(math.floor((newLevelMaxXP/(mob_xp / countKills)*100)/100)))
+		if LVLSPD_lsElements.showKillsToLevel then
+			if LVLSPD_mob_xp > 0 and LVLSPD_countKills > 0 then
+				LVLSPD_kills_toLevel2:SetText(math.ceil(math.floor((newLevelMaxXP/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100)))
 			end
 		end
 		
 		-- Reset the flag
-		justLeveledUp = false
+		LVLSPD_justLeveledUp = false
 	end
 
-	if lsElements.showTotalXP then
-		totalXPValue:SetText(calculateTotalXP())
+	if LVLSPD_lsElements.showTotalXP then
+		LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
 	end
 end
 
 if b == "PLAYER_REGEN_DISABLED" then
-	if start2 == 0 then
-		start2 = time()
+	if LVLSPD_start2 == 0 then
+		LVLSPD_start2 = time()
 	end
-	if time() - lastKill > 45 then
+	if time() - LVLSPD_lastKill > 45 then
 		
-		if lsElements.showFarmXPS then
-			xpps3:SetText("Start..")
+		if LVLSPD_lsElements.showFarmXPS then
+			LVLSPD_xpps3:SetText("Start..")
 		end
-		getStuff2()
+		LVLSPD_getStuff2()
 	end
 end
 
@@ -135,98 +134,98 @@ if b == "CHAT_MSG_COMBAT_XP_GAIN"then
 	if string.find(c, " dies," ) then
 		_,c  = string.split(",",c,2)
 		_,_,_,c,_ = string.split(" ",c,5)
-		_XP = _XP + c
-		mob_xp = mob_xp + c
+		LVLSPD_XP = LVLSPD_XP + c
+		LVLSPD_mob_xp = LVLSPD_mob_xp + c
 
-		if lsElements.showLastKillXP then
-			lastKillXP = c;
-			lastKillXPValue:SetText(lastKillXP)
+		if LVLSPD_lsElements.showLastKillXP then
+			LVLSPD_lastKillXP = c;
+			LVLSPD_lastKillXPValue:SetText(LVLSPD_lastKillXP)
 		end
 		
-		lastKill = time()
-		countKills = countKills + 1
+		LVLSPD_lastKill = time()
+		LVLSPD_countKills = LVLSPD_countKills + 1
 
-		if lsElements.showKillsToLevel then
-			kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")+c))/(mob_xp / countKills)*100)/100))
+		if LVLSPD_lsElements.showKillsToLevel then
+			LVLSPD_kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")+c))/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100))
 		end
 
-		if lsElements.showFarmXPS then
-			xpps3:SetText(math.floor(mob_xp / (time() -start2)*100)/100)
+		if LVLSPD_lsElements.showFarmXPS then
+			LVLSPD_xpps3:SetText(math.floor(LVLSPD_mob_xp / (time() -LVLSPD_start2)*100)/100)
 		end
-		updateNums()
+		LVLSPD_updateNums()
 	else
 		_,_,c,_ = string.split(" ",c,4)
-		_XP = _XP + c
+		LVLSPD_XP = LVLSPD_XP + c
 		
-		updateNums()
+		LVLSPD_updateNums()
 
 	end
 end
 
 if b == "ADDON_LOADED" and c == "LevelSpeed" then
-	OnLogin()
+	LVLSPD_OnLogin()
 end
 
 if b == "PLAYER_MONEY" then
 	-- print("You earned "..GetMoney() - currentMoney.." copper at"..time()..".")
 	-- print("You have earned "..(((GetMoney() - loginMoney) / (time() - loginTime)) * 60 * 60).." copper per hour since login.")
 
-	deltaMoney = (((GetMoney() - loginMoney) / (time() - loginTime)) * 60 * 60)
+	LVLSPD_deltaMoney = (((GetMoney() - LVLSPD_loginMoney) / (time() - LVLSPD_loginTime)) * 60 * 60)
 
-	deltaGold = math.floor(deltaMoney / 10000)
-	deltaSilver = math.floor((deltaMoney % 10000) / 100)
-	deltaCopper = math.floor(deltaMoney % 100)
+	LVLSPD_deltaGold = math.floor(LVLSPD_deltaMoney / 10000)
+	LVLSPD_deltaSilver = math.floor((LVLSPD_deltaMoney % 10000) / 100)
+	LVLSPD_deltaCopper = math.floor(LVLSPD_deltaMoney % 100)
 
-	if lsElements.showGoldPerHour then
-		goldPerHourValue:SetText(deltaGold.."g "..deltaSilver.."s "..deltaCopper.."c")
+	if LVLSPD_lsElements.showGoldPerHour then
+		LVLSPD_goldPerHourValue:SetText(LVLSPD_deltaGold.."g "..LVLSPD_deltaSilver.."s "..LVLSPD_deltaCopper.."c")
 	end
 
-    currentMoney = GetMoney()
+    LVLSPD_currentMoney = GetMoney()
 end
 
 end)
-function updateNums()
+function LVLSPD_updateNums()
 
-	if reset == 0 then
-		if lsElements.showTimeToLevel then
-			kills_toLevel:SetText(0)
+	if LVLSPD_reset == 0 then
+		if LVLSPD_lsElements.showTimeToLevel then
+			LVLSPD_kills_toLevel:SetText(0)
 		end
-		if lsElements.showAllXPS then
-			xpps:SetText(0)
+		if LVLSPD_lsElements.showAllXPS then
+			LVLSPD_xpps:SetText(0)
 		end
-		if lsElements.showKillsToLevel then
-			kills_toLevel2:SetText(0)
+		if LVLSPD_lsElements.showKillsToLevel then
+			LVLSPD_kills_toLevel2:SetText(0)
 		end
-		if lsElements.showFarmXPS then
-			xpps3:SetText(0)
+		if LVLSPD_lsElements.showFarmXPS then
+			LVLSPD_xpps3:SetText(0)
 		end
-		if lsElements.showLastKillXP then
-			lastKillXPValue:SetText(0)
+		if LVLSPD_lsElements.showLastKillXP then
+			LVLSPD_lastKillXPValue:SetText(0)
 		end
-		if lsElements.showTotalXP then
-			totalXPValue:SetText(calculateTotalXP())
+		if LVLSPD_lsElements.showTotalXP then
+			LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
 		end
-		if lsElements.showGoldPerHour then
-			goldPerHourValue:SetText("0g 0s 0c")
+		if LVLSPD_lsElements.showGoldPerHour then
+			LVLSPD_goldPerHourValue:SetText("0g 0s 0c")
 		end
 		
-		reset = reset +1
+		LVLSPD_reset = LVLSPD_reset +1
 	else
 
 
 
-	diffTime = time() - start 
-	_XPS = _XP / diffTime
-	if lsElements.showAllXPS then
-		xpps:SetText(math.floor(_XPS*100)/100)
+	LVLSPD_diffTime = time() - LVLSPD_start 
+	LVLSPD_XPS = LVLSPD_XP / LVLSPD_diffTime
+	if LVLSPD_lsElements.showAllXPS then
+		LVLSPD_xpps:SetText(math.floor(LVLSPD_XPS*100)/100)
 	end
 	
-	maxXP = UnitXPMax("player")
-	currXP = UnitXP("player")
-	xpLeft = maxXP - currXP
+	LVLSPD_maxXP = UnitXPMax("player")
+	LVLSPD_currXP = UnitXP("player")
+	LVLSPD_xpLeft = LVLSPD_maxXP - LVLSPD_currXP
 
-	if lsElements.showTimeToLevel then
-		kills_toLevel:SetText(math.floor(xpLeft / _XPS / 60*100)/100)
+	if LVLSPD_lsElements.showTimeToLevel then
+		LVLSPD_kills_toLevel:SetText(math.floor(LVLSPD_xpLeft / LVLSPD_XPS / 60*100)/100)
 	end
 	
 	end

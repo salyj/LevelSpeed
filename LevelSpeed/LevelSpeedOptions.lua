@@ -1,20 +1,20 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
-function CreateWindow()
-    local OptionsGUI = _LSOptions()
+function LVLSPD_CreateWindow()
+    local OptionsGUI = LVLSPD_LSOptions()
     LibStub("AceConfig-3.0"):RegisterOptionsTable("LevelSpeed", OptionsGUI)
     LibStub("AceConfigDialog-3.0"):AddToBlizOptions("LevelSpeed", "Level Speed")
 
-    local optionsFrame = AceGUI:Create("Frame")
+    LVLSPD_optionsFrame = AceGUI:Create("Frame")
     LibStub("AceConfigDialog-3.0"):SetDefaultSize("LevelSpeed", 400, 300)
-    LibStub("AceConfigDialog-3.0"):Open("LevelSpeed", optionsFrame)
-    optionsFrame:Hide();
+    LibStub("AceConfigDialog-3.0"):Open("LevelSpeed", LVLSPD_optionsFrame)
+    LVLSPD_optionsFrame:Hide();
 
-    LSOptionsFrame = optionsFrame.frame
-    table.insert(UISpecialFrames, "LSOptionsFrame")
+    LVLSPD_LSOptionsFrame = LVLSPD_optionsFrame.frame
+    table.insert(UISpecialFrames, "LVLSPD_LSOptionsFrame")
 end
 
-_LSOptions = function()
+LVLSPD_LSOptions = function()
     return {
         name = "LevelSpeed Options",
         type = "group",
@@ -23,110 +23,110 @@ _LSOptions = function()
                 type = "toggle",
                 name = "Show Farm XPS",
                 desc = "Show Experience per second while in combat - Maximum of 6 elements can be shown at once",
-                get = function() return lsElements.showFarmXPS end,
+                get = function() return LVLSPD_lsElements.showFarmXPS end,
                 set = function(info, val) 
-                if (numberCreatedElements < 6) then
-                    lsElements.showFarmXPS = val 
+                if (LVLSPD_numberCreatedElements < 6) then
+                    LVLSPD_lsElements.showFarmXPS = val 
                 else
-                    lsElements.showFarmXPS = false
+                    LVLSPD_lsElements.showFarmXPS = false
                 end
-                LSRebuild_Elements()
+                LVLSPD_LSRebuild_Elements()
                 end,
             },
             showAllXPS = {
                 type = "toggle",
                 name = "Show All XPS",
                 desc = "Show Experience per second overall - Maximum of 6 elements can be shown at once",
-                get = function() return lsElements.showAllXPS end,
+                get = function() return LVLSPD_lsElements.showAllXPS end,
                 set = function(info, val)
-                if (numberCreatedElements < 6) then
-                    lsElements.showAllXPS = val
+                if (LVLSPD_numberCreatedElements < 6) then
+                    LVLSPD_lsElements.showAllXPS = val
                 else
-                    lsElements.showAllXPS = false
+                    LVLSPD_lsElements.showAllXPS = false
                 end
-                LSRebuild_Elements()
+                LVLSPD_LSRebuild_Elements()
                 end,
             },
             showTimeToLevel = {
                 type = "toggle",
                 name = "Show Time to Level",
                 desc = "Show estimated time to level based on overall XPS - Maximum of 6 elements can be shown at once",
-                get = function() return lsElements.showTimeToLevel end,
+                get = function() return LVLSPD_lsElements.showTimeToLevel end,
                 set = function(info, val)
-                if (numberCreatedElements < 6) then
-                    lsElements.showTimeToLevel = val
+                if (LVLSPD_numberCreatedElements < 6) then
+                    LVLSPD_lsElements.showTimeToLevel = val
                 else
-                    lsElements.showTimeToLevel = false
+                    LVLSPD_lsElements.showTimeToLevel = false
                 end
-                LSRebuild_Elements()
+                LVLSPD_LSRebuild_Elements()
                 end,
             },
             showKillsToLevel = {
                 type = "toggle",
                 name = "Show Kills to Level",
                 desc = "Show estimated kills to level based on farm XPS - Maximum of 6 elements can be shown at once",
-                get = function() return lsElements.showKillsToLevel end,
+                get = function() return LVLSPD_lsElements.showKillsToLevel end,
                 set = function(info, val)
-                if (numberCreatedElements < 6) then
-                    lsElements.showKillsToLevel = val
+                if (LVLSPD_numberCreatedElements < 6) then
+                    LVLSPD_lsElements.showKillsToLevel = val
                 else
-                    lsElements.showKillsToLevel = false
+                    LVLSPD_lsElements.showKillsToLevel = false
                 end
-                LSRebuild_Elements()
+                LVLSPD_LSRebuild_Elements()
                 end,
             },
             showLastKillXP = {
                 type = "toggle",
                 name = "Show Last Kill XP",
                 desc = "Show experience gained from last kill - Maximum of 6 elements can be shown at once",
-                get = function() return lsElements.showLastKillXP end,
+                get = function() return LVLSPD_lsElements.showLastKillXP end,
                 set = function(info, val)
-                if (numberCreatedElements < 6) then
-                    lsElements.showLastKillXP = val
+                if (LVLSPD_numberCreatedElements < 6) then
+                    LVLSPD_lsElements.showLastKillXP = val
                 else
-                    lsElements.showLastKillXP = false
+                    LVLSPD_lsElements.showLastKillXP = false
                 end
-                LSRebuild_Elements()
+                LVLSPD_LSRebuild_Elements()
                 end,
             },
             showTotalXP = {
                 type = "toggle",
                 name = "Show Total XP",
                 desc = "Show total experience gained since login - Maximum of 6 elements can be shown at once",
-                get = function() return lsElements.showTotalXP end,
+                get = function() return LVLSPD_lsElements.showTotalXP end,
                 set = function(info, val)
-                if (numberCreatedElements < 6) then
-                    lsElements.showTotalXP = val
+                if (LVLSPD_numberCreatedElements < 6) then
+                    LVLSPD_lsElements.showTotalXP = val
                 else
-                    lsElements.showTotalXP = false
+                    LVLSPD_lsElements.showTotalXP = false
                 end
-                LSRebuild_Elements()
+                LVLSPD_LSRebuild_Elements()
                 end,
             },
             showGoldPerHour = {
                 type = "toggle",
                 name = "Show Gold Per Hour",
                 desc = "Show estimated gold earned per hour since login - Maximum of 6 elements can be shown at once",
-                get = function() return lsElements.showGoldPerHour end,
+                get = function() return LVLSPD_lsElements.showGoldPerHour end,
                 set = function(info, val)
-                if (numberCreatedElements < 6) then
-                    lsElements.showGoldPerHour = val
+                if (LVLSPD_numberCreatedElements < 6) then
+                    LVLSPD_lsElements.showGoldPerHour = val
                 else
-                    lsElements.showGoldPerHour = false
+                    LVLSPD_lsElements.showGoldPerHour = false
                 end
-                LSRebuild_Elements()
+                LVLSPD_LSRebuild_Elements()
                 end,
             }
         }
     }
 end
 
-function ToggleOptionsWindow()
-    if (not optionsFrame:IsShown()) then
-        optionsFrame:Show()
+function LVLSPD_ToggleOptionsWindow()
+    if (not LVLSPD_optionsFrame:IsShown()) then
+        LVLSPD_optionsFrame:Show()
     else
-        optionsFrame:Hide()
+        LVLSPD_optionsFrame:Hide()
     end
 end
 
-CreateWindow() -- I know, I could have made this not a function if I was just going to call it anyways, but this is for future work
+LVLSPD_CreateWindow() -- I know, I could have made this not a function if I was just going to call it anyways, but this is for future work
