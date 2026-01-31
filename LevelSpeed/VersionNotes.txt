@@ -1,4 +1,15 @@
 --------------
+Version 0.4.0
+--------------
+    - Fixed bug that massively threw off gold per hour calculation
+    - Fixed bug that caused negative gold per hour calculations (if you spent more money than you made) to be inaccurate
+    - Cleaned up Options window by grouping element toggles
+    - Added Death Counter
+    - Added Session Gold element
+    - Added the ability to remove main frame Title
+    - Changed Gold per hour and Session Gold to now use Symbols rather than ..G..S..C formatting
+
+--------------
 Version 0.3.2
 --------------
     - Fixed namespace issues to prevent conflicts with other addons

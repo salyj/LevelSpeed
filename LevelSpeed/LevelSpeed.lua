@@ -10,6 +10,7 @@ function LVLSPD_OnLogin()
 	if LVLSPD_lsElements.showTotalXP then
 		LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
 	end
+	LVLSPD_toggleHideTitle()
 end
 
 LVLSPD_round = false
@@ -17,6 +18,8 @@ LVLSPD_lastKillXP = 0
 LVLSPD_justLeveledUp = false
 LVLSPD_currentMoney = 0
 LVLSPD_deltaMoney = 0
+LVLSPD_deathCount = 0
+LVLSPD_sessionMoney = 0
 
 function LVLSPD_getStuff()
 LVLSPD_XP = 0
@@ -30,7 +33,7 @@ LVLSPD_countKills = 0
 LVLSPD_reset = 0
 LVLSPD_currentMoney = GetMoney()
 LVLSPD_deltaMoney = 0
-
+LVLSPD_sessionMoney = 0
 LVLSPD_loginMoney = GetMoney()
 LVLSPD_loginTime = time()
 --
@@ -43,7 +46,6 @@ function LVLSPD_getStuff2()
 	LVLSPD_mob_xp = 0
 	LVLSPD_lastKill = 0
 	LVLSPD_countKills = 0
-
 end
 
 function LVLSPD_calculateTotalXP()
@@ -69,7 +71,8 @@ eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
 eventFrame:RegisterEvent("PLAYER_LEVEL_UP")
 eventFrame:RegisterEvent("PLAYER_XP_UPDATE")
 eventFrame:RegisterEvent("PLAYER_MONEY")
-eventFrame:RegisterEvent("ADDON_LOADED")
+eventFrame:RegisterEvent("PLAYER_DEAD")
+eventFrame:RegisterEvent("PLAYER_LOGIN")
 eventFrame:SetScript("OnEvent", function(a,b,c,d,e,f,g,h,i,j)
 
 if  b == "CHAT_MSG_SYSTEM" and string.find(c, "Experience gained:") then
@@ -162,7 +165,7 @@ if b == "CHAT_MSG_COMBAT_XP_GAIN"then
 	end
 end
 
-if b == "ADDON_LOADED" and c == "LevelSpeed" then
+if b == "PLAYER_LOGIN" then
 	LVLSPD_OnLogin()
 end
 
@@ -170,17 +173,48 @@ if b == "PLAYER_MONEY" then
 	-- print("You earned "..GetMoney() - currentMoney.." copper at"..time()..".")
 	-- print("You have earned "..(((GetMoney() - loginMoney) / (time() - loginTime)) * 60 * 60).." copper per hour since login.")
 
+	local isNegative = false
+	local isDeltaNegative = false
+
 	LVLSPD_deltaMoney = (((GetMoney() - LVLSPD_loginMoney) / (time() - LVLSPD_loginTime)) * 60 * 60)
 
-	LVLSPD_deltaGold = math.floor(LVLSPD_deltaMoney / 10000)
-	LVLSPD_deltaSilver = math.floor((LVLSPD_deltaMoney % 10000) / 100)
-	LVLSPD_deltaCopper = math.floor(LVLSPD_deltaMoney % 100)
+	LVLSPD_sessionMoney = GetMoney() - LVLSPD_loginMoney
+
+	if LVLSPD_deltaMoney < 0 then
+		isDeltaNegative = true
+		LVLSPD_deltaMoney = LVLSPD_deltaMoney * -1
+	end
+
+	if LVLSPD_sessionMoney < 0 then
+		isNegative = true
+		LVLSPD_sessionMoney = LVLSPD_sessionMoney * -1
+	end
 
 	if LVLSPD_lsElements.showGoldPerHour then
-		LVLSPD_goldPerHourValue:SetText(LVLSPD_deltaGold.."g "..LVLSPD_deltaSilver.."s "..LVLSPD_deltaCopper.."c")
+		if isDeltaNegative then
+			LVLSPD_goldPerHourValue:SetText("-"..GetMoneyString(LVLSPD_deltaMoney))
+		else
+			LVLSPD_goldPerHourValue:SetText(GetMoneyString(LVLSPD_deltaMoney))
+		end
+	end
+
+	if LVLSPD_lsElements.showSessionGold then
+		if isNegative then
+			LVLSPD_sessionGoldValue:SetText("-"..GetMoneyString(LVLSPD_sessionMoney))
+		else
+			LVLSPD_sessionGoldValue:SetText(GetMoneyString(LVLSPD_sessionMoney))
+		end
 	end
 
     LVLSPD_currentMoney = GetMoney()
+end
+
+if b == "PLAYER_DEAD" then
+	LVLSPD_deathCount = LVLSPD_deathCount + 1
+
+	if LVLSPD_lsElements.showPlayerDeaths then
+		LVLSPD_playerDeathsValue:SetText(LVLSPD_deathCount)
+	end
 end
 
 end)
@@ -206,7 +240,7 @@ function LVLSPD_updateNums()
 			LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
 		end
 		if LVLSPD_lsElements.showGoldPerHour then
-			LVLSPD_goldPerHourValue:SetText("0g 0s 0c")
+			LVLSPD_goldPerHourValue:SetText(GetMoneyString(0))
 		end
 		
 		LVLSPD_reset = LVLSPD_reset +1

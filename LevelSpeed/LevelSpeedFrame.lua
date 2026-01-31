@@ -1,76 +1,11 @@
-LVLSPD_lsElements = {
-    showFarmXPS = true,
-    showAllXPS = true,
-    showTimeToLevel = true,
-    showKillsToLevel = true,
-    showLastKillXP = false,
-    showTotalXP = false,
-    showGoldPerHour = false
-}
-
-LVLSPD_lsOneElePoints = {
-    [0] = {0, -5, false}, 
-    [1] = {0, -20, false}
-}
-
-LVLSPD_lsTwoElePoints = {
-    [0] = {-50, -5, false}, 
-    [1] = {-50, -20, false}, 
-    [2] = {50, -5, false}, 
-    [3] = {50, -20, false}
-}
-
-LVLSPD_lsThreeElePoints = {
-    [0] = {-50, 20, false},
-    [1] = {-50, 5, false},
-    [2] = {50, 20, false},
-    [3] = {50, 5, false},
-    [4] = {0, -25, false},
-    [5] = {0, -40, false}
-}
-
-LVLSPD_lsFourElePoints = {
-    [0] = {-50, 20, false}, 
-    [1] ={-50, 5, false}, 
-    [2] = {50, 20, false}, 
-    [3] = {50, 5, false}, 
-    [4] = {-50, -25, false}, 
-    [5] = {-50, -40, false}, 
-    [6] = {50, -25, false}, 
-    [7] = {50, -40, false}
-}
-
-LVLSPD_lsFiveElePoints = {
-    [0] = {-100, 20, false},
-    [1] = {-100, 5, false},
-    [2] = {0, 20, false},
-    [3] = {0, 5, false},
-    [4] = {100, 20, false},
-    [5] = {100, 5, false},
-    [6] = {-50, -25, false},
-    [7] = {-50, -40, false},
-    [8] = {50, -25, false},
-    [9] = {50, -40, false}
-}
-
-LVLSPD_lsSixElePoints = {
-    [0] = {-100, 20, false},
-    [1] = {-100, 5, false},
-    [2] = {0, 20, false},
-    [3] = {0, 5, false},
-    [4] = {100, 20, false},
-    [5] = {100, 5, false},
-    [6] = {-100, -25, false},
-    [7] = {-100, -40, false},
-    [8] = {0, -25, false},
-    [9] = {0, -40, false},
-    [10] = {100, -25, false},
-    [11] = {100, -40, false}
-}
-
 local numberOfElements = 0
 local currentPoint = {}
+LVLSPD_hideTitle = false
 LVLSPD_numberCreatedElements = 0
+
+function LVLSPD_getHideTitle()
+    return LVLSPD_hideTitle
+end
 
 function LVLSPD_LSGetNumberOfElements()
     numberOfElements = 0
@@ -93,18 +28,34 @@ function LVLSPD_calculateElementPoint()
     LVLSPD_foundPoint = false
     LVLSPD_loopIterator = 0
 
-    if numberOfElements == 1 then
-        LVLSPD_pointsList = LVLSPD_lsOneElePoints
-    elseif numberOfElements == 2 then
-        LVLSPD_pointsList = LVLSPD_lsTwoElePoints
-    elseif numberOfElements == 3 then
-        LVLSPD_pointsList = LVLSPD_lsThreeElePoints
-    elseif numberOfElements == 4 then
-        LVLSPD_pointsList = LVLSPD_lsFourElePoints
-    elseif numberOfElements == 5 then
-        LVLSPD_pointsList = LVLSPD_lsFiveElePoints
-    elseif numberOfElements == 6 then
-        LVLSPD_pointsList = LVLSPD_lsSixElePoints
+    if( not LVLSPD_hideTitle ) then
+        if numberOfElements == 1 then
+            LVLSPD_pointsList = LVLSPD_lsOneElePoints
+        elseif numberOfElements == 2 then
+            LVLSPD_pointsList = LVLSPD_lsTwoElePoints
+        elseif numberOfElements == 3 then
+            LVLSPD_pointsList = LVLSPD_lsThreeElePoints
+        elseif numberOfElements == 4 then
+            LVLSPD_pointsList = LVLSPD_lsFourElePoints
+        elseif numberOfElements == 5 then
+            LVLSPD_pointsList = LVLSPD_lsFiveElePoints
+        elseif numberOfElements == 6 then
+            LVLSPD_pointsList = LVLSPD_lsSixElePoints
+        end
+    else
+        if numberOfElements == 1 then
+            LVLSPD_pointsList = LVLSPD_lsOneElePointCom
+        elseif numberOfElements == 2 then
+            LVLSPD_pointsList = LVLSPD_lsTwoElePointsCom
+        elseif numberOfElements == 3 then
+            LVLSPD_pointsList = LVLSPD_lsThreeElePointsCom
+        elseif numberOfElements == 4 then
+            LVLSPD_pointsList = LVLSPD_lsFourElePointsCom
+        elseif numberOfElements == 5 then
+            LVLSPD_pointsList = LVLSPD_lsFiveElePointsCom
+        elseif numberOfElements == 6 then
+            LVLSPD_pointsList = LVLSPD_lsSixElePointsCom
+        end
     end
 
     while(LVLSPD_foundPoint == false) do
@@ -123,12 +74,22 @@ function LVLSPD_calculateElementPoint()
 end
 
 function LVLSPD_setMainFrameSize()
-    if numberOfElements <= 2 then
-        LVLSPD_mainFrame:SetSize(235,75)
-    elseif numberOfElements <= 4 then
-        LVLSPD_mainFrame:SetSize(235,115)
+    if( not LVLSPD_hideTitle ) then
+        if numberOfElements <= 2 then
+            LVLSPD_mainFrame:SetSize(235,75)
+        elseif numberOfElements <= 4 then
+            LVLSPD_mainFrame:SetSize(235,115)
+        else
+            LVLSPD_mainFrame:SetSize(320,115)
+        end
     else
-        LVLSPD_mainFrame:SetSize(320,115)
+        if numberOfElements <= 2 then
+            LVLSPD_mainFrame:SetSize(235,50)
+        elseif numberOfElements <= 4 then
+            LVLSPD_mainFrame:SetSize(235,90)
+        else
+            LVLSPD_mainFrame:SetSize(320,90)
+        end
     end
 end
 
@@ -145,13 +106,15 @@ LVLSPD_mainFrame:SetScript("OnDragStop", function(self)
     self:StopMovingOrSizing()
   end)
 
-local titleFrame = CreateFrame("Frame", nil, LVLSPD_mainFrame,"InsetFrameTemplate3")
-titleFrame:SetPoint("TOP",0,0)
-titleFrame:SetSize(200,25)
+if( not LVLSPD_hideTitle ) then
+    LVLSPD_titleFrame = CreateFrame("Frame", nil, LVLSPD_mainFrame,"InsetFrameTemplate3")
+    LVLSPD_titleFrame:SetPoint("TOP",0,0)
+    LVLSPD_titleFrame:SetSize(200,25)
 
-local titleMain = titleFrame:CreateFontString("ARTWORK", nil, "GameFontRed")
-titleMain:SetPoint("CENTER")
-titleMain:SetText("Level Speed")
+    LVLSPD_titleMain = LVLSPD_titleFrame:CreateFontString("ARTWORK", nil, "GameFontRed")
+    LVLSPD_titleMain:SetPoint("CENTER")
+    LVLSPD_titleMain:SetText("Level Speed")
+end
 
 function LVLSPD_LSCreate_Elements()
 
@@ -251,7 +214,35 @@ function LVLSPD_LSCreate_Elements()
         LVLSPD_goldPerHourValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
         currentPoint = LVLSPD_calculateElementPoint()
         LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_goldPerHourValue:SetText("0g 0s 0c")
+        LVLSPD_goldPerHourValue:SetText(GetMoneyString(0))
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+    end
+
+    if LVLSPD_lsElements.showSessionGold and LVLSPD_numberCreatedElements < 6 then
+        LVLSPD_sessionGoldText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+        currentPoint = LVLSPD_calculateElementPoint()
+        LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+        LVLSPD_sessionGoldText:SetText("Session Gold:")
+
+        LVLSPD_sessionGoldValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+        currentPoint = LVLSPD_calculateElementPoint()
+        LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+        LVLSPD_sessionGoldValue:SetText(GetMoneyString(0))
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+    end
+
+    if LVLSPD_lsElements.showPlayerDeaths and LVLSPD_numberCreatedElements < 6 then
+        LVLSPD_playerDeathsText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+        currentPoint = LVLSPD_calculateElementPoint()
+        LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+        LVLSPD_playerDeathsText:SetText("Player Deaths:")
+
+        LVLSPD_playerDeathsValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+        currentPoint = LVLSPD_calculateElementPoint()
+        LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+        LVLSPD_playerDeathsValue:SetText(LVLSPD_deathCount)
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
@@ -304,6 +295,18 @@ function LVLSPD_LSHideAllElements()
     end
     if(LVLSPD_goldPerHourValue ~= nil) then
         LVLSPD_goldPerHourValue:Hide()
+    end
+    if(LVLSPD_sessionGoldText ~= nil) then
+        LVLSPD_sessionGoldText:Hide()
+    end
+    if(LVLSPD_sessionGoldValue ~= nil) then
+        LVLSPD_sessionGoldValue:Hide()
+    end
+    if(LVLSPD_playerDeathsText ~= nil) then
+        LVLSPD_playerDeathsText:Hide()
+    end
+    if(LVLSPD_playerDeathsValue ~= nil) then
+        LVLSPD_playerDeathsValue:Hide()
     end
 end
 
@@ -478,9 +481,83 @@ function LVLSPD_LSRebuild_Elements()
             LVLSPD_goldPerHourValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             currentPoint = LVLSPD_calculateElementPoint()
             LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_goldPerHourValue:SetText(0)
+            LVLSPD_goldPerHourValue:SetText(GetMoneyString(0))
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
+    if(LVLSPD_lsElements.showSessionGold and LVLSPD_numberCreatedElements < 6) then
+        if(LVLSPD_sessionGoldText) then
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionGoldText:Show()
+        else
+            LVLSPD_sessionGoldText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionGoldText:SetText("Session Gold:")
+        end
+        if(LVLSPD_sessionGoldValue) then
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionGoldValue:Show()
+        else
+            LVLSPD_sessionGoldValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionGoldValue:SetText(GetMoneyString(0))
+        end
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+    end
+    if(LVLSPD_lsElements.showPlayerDeaths and LVLSPD_numberCreatedElements < 6) then
+        if(LVLSPD_playerDeathsText) then
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_playerDeathsText:Show()
+        else
+            LVLSPD_playerDeathsText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_playerDeathsText:SetText("Player Deaths:")
+        end
+        if(LVLSPD_playerDeathsValue) then
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_playerDeathsValue:Show()
+        else
+            LVLSPD_playerDeathsValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_playerDeathsValue:SetText(LVLSPD_deathCount)
+        end
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+    end
+end
+
+function LVLSPD_toggleHideTitle()
+    if (LVLSPD_titleFrame) then
+        if (LVLSPD_hideTitle) then
+            LVLSPD_titleFrame:Hide()
+            LVLSPD_titleMain:Hide()
+        else
+            LVLSPD_titleFrame:Show()
+            LVLSPD_titleMain:Show()
+        end
+    else
+        if (not LVLSPD_hideTitle) then
+            LVLSPD_titleFrame = CreateFrame("Frame", nil, LVLSPD_mainFrame,"InsetFrameTemplate3")
+            LVLSPD_titleFrame:SetPoint("TOP",0,0)
+            LVLSPD_titleFrame:SetSize(200,25)
+
+            LVLSPD_titleMain = LVLSPD_titleFrame:CreateFontString("ARTWORK", nil, "GameFontRed")
+            LVLSPD_titleMain:SetPoint("CENTER")
+            LVLSPD_titleMain:SetText("Level Speed")
+        end
+    end
+end
+
+function LVLSPD_setHideTitle(value)
+    LVLSPD_hideTitle = value
 end

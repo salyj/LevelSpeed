@@ -8,11 +8,15 @@
 ## Note: Huge thanks to Khileez and Prochilles for their work on the original addon
 
 ## SavedVariables: 
-## SavedVariablesPerCharacter: LVLSPD_lsElements
+## SavedVariablesPerCharacter: LVLSPD_lsElements, LVLSPD_hideTitle, LVLSPD_deathCount
 
 embeds.xml
 
+## Note: Data Files
 LevelSpeedData.lua
+LevelSpeedFrameData.lua
+
+## Note: Addon Operation Files
 LevelSpeedFrame.lua
 LevelSpeed.lua
 LevelSpeedCmds.lua
