@@ -20,6 +20,7 @@ LVLSPD_currentMoney = 0
 LVLSPD_deltaMoney = 0
 LVLSPD_deathCount = 0
 LVLSPD_sessionMoney = 0
+LVLSPD_sessionHonor = 0
 
 function LVLSPD_getStuff()
 LVLSPD_XP = 0
@@ -36,6 +37,7 @@ LVLSPD_deltaMoney = 0
 LVLSPD_sessionMoney = 0
 LVLSPD_loginMoney = GetMoney()
 LVLSPD_loginTime = time()
+LVLSPD_sessionHonor = 0
 --
 LVLSPD_updateNums()
 
@@ -59,9 +61,8 @@ function LVLSPD_calculateTotalXP()
 
 	totalXP = totalXP + UnitXP("player")
 
-	return totalXP
+	return BreakUpLargeNumbers(totalXP)
 end
-
 
 
 local eventFrame = CreateFrame("Frame")
@@ -73,6 +74,7 @@ eventFrame:RegisterEvent("PLAYER_XP_UPDATE")
 eventFrame:RegisterEvent("PLAYER_MONEY")
 eventFrame:RegisterEvent("PLAYER_DEAD")
 eventFrame:RegisterEvent("PLAYER_LOGIN")
+eventFrame:RegisterEvent("CHAT_MSG_COMBAT_HONOR_GAIN")
 eventFrame:SetScript("OnEvent", function(a,b,c,d,e,f,g,h,i,j)
 
 if  b == "CHAT_MSG_SYSTEM" and string.find(c, "Experience gained:") then
@@ -89,8 +91,8 @@ if  b == "CHAT_MSG_SYSTEM" and string.find(c, "Experience gained:") then
 			end
 		end
 	end
-	
 end
+
 if b == "PLAYER_LEVEL_UP" then
 	LVLSPD_justLeveledUp = true
 	
@@ -163,6 +165,21 @@ if b == "CHAT_MSG_COMBAT_XP_GAIN"then
 		LVLSPD_updateNums()
 
 	end
+end
+
+if b == "CHAT_MSG_COMBAT_HONOR_GAIN" then
+
+	if(string.find(c, ")") ~= nil) then
+		_,c = string.split("(", c, 2)
+		c,_,_ = string.split(" ",c,3)
+	else
+		_,_,_,_,c,_,_ = string.split(" ", c, 7)
+	end
+
+	LVLSPD_sessionHonor = LVLSPD_sessionHonor + tonumber(c)
+
+	LVLSPD_sessionHonorValue:SetText(LVLSPD_sessionHonor)
+
 end
 
 if b == "PLAYER_LOGIN" then

@@ -17,8 +17,10 @@ function LVLSPD_LSGetNumberOfElements()
 end
 
 function LVLSPD_resetPointsList(list)
-    for i=0, #list do
-        list[i][3] = false
+    if list ~= nil then
+        for i=0, #list do
+            list[i][3] = false
+        end
     end
 end
 
@@ -247,6 +249,18 @@ function LVLSPD_LSCreate_Elements()
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
+    if LVLSPD_lsElements.showSessionHonor and LVLSPD_numberCreatedElements < 6 then
+        LVLSPD_sessionHonorText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+        currentPoint = LVLSPD_calculateElementPoint()
+        LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+        LVLSPD_sessionHonorText:SetText("Session Honor:")
+
+        LVLSPD_sessionHonorValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+        currentPoint = LVLSPD_calculateElementPoint()
+        LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+        LVLSPD_sessionHonorValue:SetText(LVLSPD_sessionHonor)
+    end
+
     LVLSPD_getStuff()
 end
 
@@ -307,6 +321,12 @@ function LVLSPD_LSHideAllElements()
     end
     if(LVLSPD_playerDeathsValue ~= nil) then
         LVLSPD_playerDeathsValue:Hide()
+    end
+    if(LVLSPD_sessionHonorText ~= nil) then
+        LVLSPD_sessionHonorText:Hide()
+    end
+    if(LVLSPD_sessionHonorValue ~= nil) then
+        LVLSPD_sessionHonorValue:Hide()
     end
 end
 
@@ -533,6 +553,29 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+    end
+    if(LVLSPD_lsElements.showSessionHonor and LVLSPD_numberCreatedElements < 6) then
+        if(LVLSPD_sessionHonorText) then
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionHonorText:Show()
+        else
+            LVLSPD_sessionHonorText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GAmeFontGreen")
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionHonorText:SetText("Session Honor:")
+        end
+        if(LVLSPD_sessionHonorValue) then
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionHonorValue:SetText(LVLSPD_sessionHonor)
+            LVLSPD_sessionHonorValue:Show()
+        else
+            LVLSPD_sessionHonorValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionHonorValue:SetText(LVLSPD_sessionHonor)
+        end
     end
 end
 

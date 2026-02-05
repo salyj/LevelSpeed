@@ -2,43 +2,5 @@
 ALL PLANNED FEATURES
 ---------------------
 
-- Implement Options menu to toggle display of elements
-- Implement Gold tracking
-- Implement PvP tracking
-    - Honor
-    - Honor Per Second
-    - Arena Rating
-    - Battleground Wins
-    - Battleground Losses
-- Implement death tracking
-- Implement second window for other elements
-- Implement larger window opened via minimap button or slash commands
-    - Display all stats
-    - Broken into sections
-
--------------------------------
-Version 0.3.0 Planned Features
--------------------------------
-
-- Implement Options menu to toggle display of elements
-- Implement Gold tracking
-
--------------------------------
-Version 0.4.0 Planned Features
--------------------------------
-
-- Implement PvP tracking
-    - Honor
-    - Honor Per Second
-    - Arena Rating
-    - Battleground Wins
-    - Battleground Losses
-- Implement death tracking
-- Add ability to display addon as bar
-
--------------------------------
-Version 0.5.0 Planned Features
--------------------------------
-- Implement larger window opened via minimap button or slash commands
-    - Display all stats
-    - Broken into sections
+    - Setup Bar display frame option
+    - Setup Thank you tab in Options

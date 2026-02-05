@@ -7,7 +7,8 @@ LVLSPD_lsElements = {
     showTotalXP = false,
     showGoldPerHour = false,
     showSessionGold = false,
-    showPlayerDeaths = false
+    showPlayerDeaths = false,
+    showSessionHonor = false
 }
 
 LVLSPD_lsOneElePoints = {
