@@ -1,14 +1,14 @@
 ## Interface: 20505
 
 ## Title: Level Speed - Anniversary Edition
-## Version: 0.5.0
+## Version: 0.5.1
 
 ## Author: HKRob
 
 ## Note: Huge thanks to Khileez and Prochilles for their work on the original addon
 
 ## SavedVariables: 
-## SavedVariablesPerCharacter: LVLSPD_lsElements, LVLSPD_hideTitle, LVLSPD_deathCount
+## SavedVariablesPerCharacter: LVLSPD_lsElements, LVLSPD_hideTitle, LVLSPD_deathCount, LVLSPD_windowLocation
 
 embeds.xml
 

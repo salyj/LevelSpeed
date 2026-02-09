@@ -12,121 +12,121 @@ LVLSPD_lsElements = {
 }
 
 LVLSPD_lsOneElePoints = {
-    [0] = {0, -5, false}, 
-    [1] = {0, -20, false}
+    [0] = {0, 0, false}, 
+    [1] = {0, -15, false}
 }
 
 LVLSPD_lsOneElePointCom = {
-    [0] = {0, 10, false},
-    [1] = {0, -5, false}
+    [0] = {0, 5, false},
+    [1] = {0, -10, false}
 }
 
 LVLSPD_lsTwoElePoints = {
-    [0] = {-50, -5, false}, 
-    [1] = {-50, -20, false}, 
-    [2] = {50, -5, false}, 
-    [3] = {50, -20, false}
+    [0] = {-65, 0, false}, 
+    [1] = {-65, -15, false}, 
+    [2] = {65, 0, false}, 
+    [3] = {65, -15, false}
 }
 
 LVLSPD_lsTwoElePointsCom = {
-    [0] = {-50, 10, false},
-    [1] = {-50, -5, false},
-    [2] = {50, 10, false},
-    [3] = {50, -5, false}
+    [0] = {-65, 5, false},
+    [1] = {-65, -10, false},
+    [2] = {65, 5, false},
+    [3] = {65, -10, false}
 }
 
 LVLSPD_lsThreeElePoints = {
-    [0] = {-50, 20, false},
-    [1] = {-50, 5, false},
-    [2] = {50, 20, false},
-    [3] = {50, 5, false},
-    [4] = {0, -25, false},
-    [5] = {0, -40, false}
+    [0] = {-65, 15, false},
+    [1] = {-65, 0, false},
+    [2] = {65, 15, false},
+    [3] = {65, 0, false},
+    [4] = {0, -20, false},
+    [5] = {0, -35, false}
 }
 
 LVLSPD_lsThreeElePointsCom = {
-    [0] = {-50, 30, false},
-    [1] = {-50, 15, false},
-    [2] = {50, 30, false},
-    [3] = {50, 15, false},
-    [4] = {0, -15, false},
-    [5] = {0, -30, false}
+    [0] = {-65, 25, false},
+    [1] = {-65, 10, false},
+    [2] = {65, 25, false},
+    [3] = {65, 10, false},
+    [4] = {0, -10, false},
+    [5] = {0, -25, false}
 }
 
 LVLSPD_lsFourElePoints = {
-    [0] = {-50, 20, false}, 
-    [1] ={-50, 5, false}, 
-    [2] = {50, 20, false}, 
-    [3] = {50, 5, false}, 
-    [4] = {-50, -25, false}, 
-    [5] = {-50, -40, false}, 
-    [6] = {50, -25, false}, 
-    [7] = {50, -40, false}
+    [0] = {-65, 15, false}, 
+    [1] ={-65, 0, false}, 
+    [2] = {65, 15, false}, 
+    [3] = {65, 0, false}, 
+    [4] = {-65, -20, false}, 
+    [5] = {-65, -35, false}, 
+    [6] = {65, -20, false}, 
+    [7] = {65, -35, false}
 }
 
 LVLSPD_lsFourElePointsCom = {
-    [0] = {-50, 30, false},
-    [1] = {-50, 15, false},
-    [2] = {50, 30, false},
-    [3] = {50, 15, false},
-    [4] = {-50, -15, false},
-    [5] = {-50, -30, false},
-    [6] = {50, -15, false},
-    [7] = {50, -30, false}
+    [0] = {-65, 25, false},
+    [1] = {-65, 10, false},
+    [2] = {65, 25, false},
+    [3] = {65, 10, false},
+    [4] = {-65, -10, false},
+    [5] = {-65, -25, false},
+    [6] = {65, -10, false},
+    [7] = {65, -25, false}
 }
 
 LVLSPD_lsFiveElePoints = {
-    [0] = {-100, 20, false},
-    [1] = {-100, 5, false},
-    [2] = {0, 20, false},
-    [3] = {0, 5, false},
-    [4] = {100, 20, false},
-    [5] = {100, 5, false},
-    [6] = {-50, -25, false},
-    [7] = {-50, -40, false},
-    [8] = {50, -25, false},
-    [9] = {50, -40, false}
+    [0] = {-115, 15, false},
+    [1] = {-115, 0, false},
+    [2] = {0, 15, false},
+    [3] = {0, 0, false},
+    [4] = {115, 15, false},
+    [5] = {115, 0, false},
+    [6] = {-65, -20, false},
+    [7] = {-65, -35, false},
+    [8] = {65, -20, false},
+    [9] = {65, -35, false}
 }
 
 LVLSPD_lsFiveElePointsCom = {
-    [0] = {-100, 30, false},
-    [1] = {-100, 15, false},
-    [2] = {0, 30, false},
-    [3] = {0, 15, false},
-    [4] = {100, 30, false},
-    [5] = {100, 15, false},
-    [6] = {-50, -15, false},
-    [7] = {-50, -30, false},
-    [8] = {50, -15, false},
-    [9] = {50, -30, false}
+    [0] = {-115, 25, false},
+    [1] = {-115, 10, false},
+    [2] = {0, 25, false},
+    [3] = {0, 10, false},
+    [4] = {115, 25, false},
+    [5] = {115, 10, false},
+    [6] = {-65, -10, false},
+    [7] = {-65, -25, false},
+    [8] = {65, -10, false},
+    [9] = {65, -25, false}
 }
 
 LVLSPD_lsSixElePoints = {
-    [0] = {-100, 20, false},
-    [1] = {-100, 5, false},
-    [2] = {0, 20, false},
-    [3] = {0, 5, false},
-    [4] = {100, 20, false},
-    [5] = {100, 5, false},
-    [6] = {-100, -25, false},
-    [7] = {-100, -40, false},
-    [8] = {0, -25, false},
-    [9] = {0, -40, false},
-    [10] = {100, -25, false},
-    [11] = {100, -40, false}
+    [0] = {-115, 15, false},
+    [1] = {-115, 0, false},
+    [2] = {0, 15, false},
+    [3] = {0, 0, false},
+    [4] = {115, 15, false},
+    [5] = {115, 0, false},
+    [6] = {-115, -20, false},
+    [7] = {-115, -35, false},
+    [8] = {0, -20, false},
+    [9] = {0, -35, false},
+    [10] = {115, -20, false},
+    [11] = {115, -35, false}
 }
 
 LVLSPD_lsSixElePointsCom = {
-    [0] = {-100, 30, false},
-    [1] = {-100, 15, false},
-    [2] = {0, 30, false},
-    [3] = {0, 15, false},
-    [4] = {100, 30, false},
-    [5] = {100, 15, false},
-    [6] = {-100, -15, false},
-    [7] = {-100, -30, false},
-    [8] = {0, -15, false},
-    [9] = {0, -30, false},
-    [10] = {100, -15, false},
-    [11] = {100, -30, false}
+    [0] = {-115, 25, false},
+    [1] = {-115, 10, false},
+    [2] = {0, 25, false},
+    [3] = {0, 10, false},
+    [4] = {115, 25, false},
+    [5] = {115, 10, false},
+    [6] = {-115, -10, false},
+    [7] = {-115, -25, false},
+    [8] = {0, -10, false},
+    [9] = {0, -25, false},
+    [10] = {115, -10, false},
+    [11] = {115, -25, false}
 }
