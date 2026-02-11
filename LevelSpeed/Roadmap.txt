@@ -2,5 +2,4 @@
 ALL PLANNED FEATURES
 ---------------------
 
-    - Setup Bar display frame option
-    - Setup Thank you tab in Options
+    - Bug fixing and maintenance. No further plans at the moment.

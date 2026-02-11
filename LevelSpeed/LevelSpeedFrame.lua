@@ -1,10 +1,8 @@
+local _, ls = ...
 local numberOfElements = 0
 local currentPoint = {}
 LVLSPD_hideTitle = false
 LVLSPD_numberCreatedElements = 0
-LVLSPD_windowLocation = {"TOP",0,-10}
-
-local _, ls = ...
 
 function LVLSPD_getHideTitle()
     return LVLSPD_hideTitle
@@ -33,43 +31,54 @@ function LVLSPD_calculateElementPoint()
     LVLSPD_foundPoint = false
     LVLSPD_loopIterator = 0
 
-    if( not LVLSPD_hideTitle ) then
-        if numberOfElements == 1 then
-            LVLSPD_pointsList = LVLSPD_lsOneElePoints
-        elseif numberOfElements == 2 then
-            LVLSPD_pointsList = LVLSPD_lsTwoElePoints
-        elseif numberOfElements == 3 then
-            LVLSPD_pointsList = LVLSPD_lsThreeElePoints
-        elseif numberOfElements == 4 then
-            LVLSPD_pointsList = LVLSPD_lsFourElePoints
-        elseif numberOfElements == 5 then
-            LVLSPD_pointsList = LVLSPD_lsFiveElePoints
-        elseif numberOfElements == 6 then
-            LVLSPD_pointsList = LVLSPD_lsSixElePoints
+    if( not LVLSPD_lsElements.showAsBar) then
+        if( not LVLSPD_hideTitle ) then
+            if numberOfElements == 1 then
+                LVLSPD_pointsList = LVLSPD_lsOneElePoints
+            elseif numberOfElements == 2 then
+                LVLSPD_pointsList = LVLSPD_lsTwoElePoints
+            elseif numberOfElements == 3 then
+                LVLSPD_pointsList = LVLSPD_lsThreeElePoints
+            elseif numberOfElements == 4 then
+                LVLSPD_pointsList = LVLSPD_lsFourElePoints
+            elseif numberOfElements == 5 then
+                LVLSPD_pointsList = LVLSPD_lsFiveElePoints
+            elseif numberOfElements == 6 then
+                LVLSPD_pointsList = LVLSPD_lsSixElePoints
+            end
+        else
+            if numberOfElements == 1 then
+                LVLSPD_pointsList = LVLSPD_lsOneElePointCom
+            elseif numberOfElements == 2 then
+                LVLSPD_pointsList = LVLSPD_lsTwoElePointsCom
+            elseif numberOfElements == 3 then
+                LVLSPD_pointsList = LVLSPD_lsThreeElePointsCom
+            elseif numberOfElements == 4 then
+                LVLSPD_pointsList = LVLSPD_lsFourElePointsCom
+            elseif numberOfElements == 5 then
+                LVLSPD_pointsList = LVLSPD_lsFiveElePointsCom
+            elseif numberOfElements == 6 then
+                LVLSPD_pointsList = LVLSPD_lsSixElePointsCom
+            end
         end
     else
-        if numberOfElements == 1 then
-            LVLSPD_pointsList = LVLSPD_lsOneElePointCom
-        elseif numberOfElements == 2 then
-            LVLSPD_pointsList = LVLSPD_lsTwoElePointsCom
-        elseif numberOfElements == 3 then
-            LVLSPD_pointsList = LVLSPD_lsThreeElePointsCom
-        elseif numberOfElements == 4 then
-            LVLSPD_pointsList = LVLSPD_lsFourElePointsCom
-        elseif numberOfElements == 5 then
-            LVLSPD_pointsList = LVLSPD_lsFiveElePointsCom
-        elseif numberOfElements == 6 then
-            LVLSPD_pointsList = LVLSPD_lsSixElePointsCom
-        end
+        LVLSPD_pointsList = LVLSPD_lsBarPoints
     end
 
-    while(LVLSPD_foundPoint == false) do
+    while(LVLSPD_foundPoint == false and LVLSPD_loopIterator < 12) do
         if LVLSPD_pointsList[LVLSPD_loopIterator][3] == false then
-            LVLSPD_returnArray[0] = "CENTER"
-            LVLSPD_returnArray[1] = LVLSPD_pointsList[LVLSPD_loopIterator][1]
-            LVLSPD_returnArray[2] = LVLSPD_pointsList[LVLSPD_loopIterator][2]
-            LVLSPD_pointsList[LVLSPD_loopIterator][3] = true
-            LVLSPD_foundPoint = true
+            if (not LVLSPD_lsElements.showAsBar) then
+                LVLSPD_returnArray[0] = "CENTER"
+                LVLSPD_returnArray[1] = LVLSPD_pointsList[LVLSPD_loopIterator][1]
+                LVLSPD_returnArray[2] = LVLSPD_pointsList[LVLSPD_loopIterator][2]
+                LVLSPD_pointsList[LVLSPD_loopIterator][3] = true
+                LVLSPD_foundPoint = true
+            else
+                LVLSPD_returnArray[0] = LVLSPD_pointsList[LVLSPD_loopIterator][1]
+                LVLSPD_returnArray[1] = LVLSPD_pointsList[LVLSPD_loopIterator][2]
+                LVLSPD_pointsList[LVLSPD_loopIterator][3] = true
+                LVLSPD_foundPoint = true
+            end
         else
             LVLSPD_loopIterator = LVLSPD_loopIterator + 1
         end
@@ -79,22 +88,26 @@ function LVLSPD_calculateElementPoint()
 end
 
 function LVLSPD_setMainFrameSize()
-    if( not LVLSPD_hideTitle ) then
-        if numberOfElements <= 2 then
-            LVLSPD_mainFrame:SetSize(280,65)
-        elseif numberOfElements <= 4 then
-            LVLSPD_mainFrame:SetSize(280,100)
+    if (not LVLSPD_lsElements.showAsBar) then
+        if( not LVLSPD_hideTitle ) then
+            if numberOfElements <= 2 then
+                LVLSPD_mainFrame:SetSize(280,65)
+            elseif numberOfElements <= 4 then
+                LVLSPD_mainFrame:SetSize(280,100)
+            else
+                LVLSPD_mainFrame:SetSize(365,100)
+            end
         else
-            LVLSPD_mainFrame:SetSize(365,100)
+            if numberOfElements <= 2 then
+                LVLSPD_mainFrame:SetSize(280,40)
+            elseif numberOfElements <= 4 then
+                LVLSPD_mainFrame:SetSize(280,80)
+            else
+                LVLSPD_mainFrame:SetSize(365,80)
+            end
         end
     else
-        if numberOfElements <= 2 then
-            LVLSPD_mainFrame:SetSize(280,40)
-        elseif numberOfElements <= 4 then
-            LVLSPD_mainFrame:SetSize(280,80)
-        else
-            LVLSPD_mainFrame:SetSize(365,80)
-        end
+        LVLSPD_mainFrame:SetSize(GetScreenWidth(), 25)
     end
 end
 
@@ -128,161 +141,361 @@ function LVLSPD_LSCreate_Elements()
     LVLSPD_setMainFrameSize()
 
     if LVLSPD_lsElements.showAllXPS and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_xpps1 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_xpps1:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_xpps1:SetText("XP/s (All)")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_xpps1 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_xpps1:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_xpps1:SetText("XP/s (All)")
 
-        LVLSPD_xpps = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_xpps:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_xpps:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_xpps:SetText(0)
+            LVLSPD_xpps = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_xpps:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpps:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_xpps:SetText(0)
+        else
+            LVLSPD_xpps1 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_xpps1:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_xpps1:SetText("XP/s (All)")
+
+            LVLSPD_xpps = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_xpps:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xppsA
+            LVLSPD_xpps:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_xpps:SetText(0)
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showFarmXPS and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_xpps4 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_xpps4:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_xpps4:SetText("XP/s (Farm)")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_xpps4 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_xpps4:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_xpps4:SetText("XP/s (Farm)")
 
-        LVLSPD_xpps3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_xpps3:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_xpps3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_xpps3:SetText(0)
+            LVLSPD_xpps3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_xpps3:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpps3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_xpps3:SetText(0)
+        else
+            LVLSPD_xpps4 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_xpps4:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_xpps4:SetText("XP/s (Farm)")
+
+            LVLSPD_xpps3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_xpps3:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xppsF
+            LVLSPD_xpps3:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_xpps3:SetText(0)
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showTimeToLevel and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_kills_toLevel1 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_kills_toLevel1:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_kills_toLevel1:SetText("Next Level (m)")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_kills_toLevel1 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_kills_toLevel1:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_kills_toLevel1:SetText("Next Level (m)")
 
-        LVLSPD_kills_toLevel = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_kills_toLevel:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_kills_toLevel:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_kills_toLevel:SetText(0)
+            LVLSPD_kills_toLevel = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_kills_toLevel:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_kills_toLevel:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_kills_toLevel:SetText(0)
+        else
+            LVLSPD_kills_toLevel1 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_kills_toLevel1:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_kills_toLevel1:SetText("Next Level (m)")
+
+            LVLSPD_kills_toLevel = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_kills_toLevel:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.nextLevel
+            LVLSPD_kills_toLevel:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_kills_toLevel:SetText(0)
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showKillsToLevel and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_kills_toLevel3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_kills_toLevel3:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_kills_toLevel3:SetText("Kills Left:")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_kills_toLevel3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_kills_toLevel3:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_kills_toLevel3:SetText("Kills Left:")
 
-        LVLSPD_kills_toLevel2 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_kills_toLevel2:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_kills_toLevel2:SetText(0)
+            LVLSPD_kills_toLevel2 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_kills_toLevel2:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_kills_toLevel2:SetText(0)
+        else
+            LVLSPD_kills_toLevel3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_kills_toLevel3:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_kills_toLevel3:SetText("Kills Left:")
+
+            LVLSPD_kills_toLevel2 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_kills_toLevel2:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.killsLeft
+            LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_kills_toLevel2:SetText(0)
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showLastKillXP and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_lastKillXPText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_lastKillXPText:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_lastKillXPText:SetText("Last Kill XP:")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_lastKillXPText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_lastKillXPText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_lastKillXPText:SetText("Last Kill XP:")
 
-        LVLSPD_lastKillXPValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_lastKillXPValue:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_lastKillXPValue:SetText(0)
+            LVLSPD_lastKillXPValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_lastKillXPValue:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_lastKillXPValue:SetText(0)
+        else
+            LVLSPD_lastKillXPText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_lastKillXPText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_lastKillXPText:SetText("Last Kill XP:")
+
+            LVLSPD_lastKillXPValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_lastKillXPValue:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.lastKill
+            LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_lastKillXPValue:SetText(0)
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showTotalXP and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_totalXPText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_totalXPText:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_totalXPText:SetText("Total XP:")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_totalXPText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_totalXPText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_totalXPText:SetText("Total XP:")
 
-        LVLSPD_totalXPValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_totalXPValue:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_totalXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
+            LVLSPD_totalXPValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_totalXPValue:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_totalXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
+        else
+            LVLSPD_totalXPText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_totalXPText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_totalXPText:SetText("Total XP:")
+
+            LVLSPD_totalXPValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_totalXPValue:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.totalXP
+            LVLSPD_totalXPValue:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showGoldPerHour and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_goldPerHourText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_goldPerHourText:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_goldPerHourText:SetText("Gold/Hour:")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_goldPerHourText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_goldPerHourText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_goldPerHourText:SetText("Gold/Hour:")
 
-        LVLSPD_goldPerHourValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_goldPerHourValue:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_goldPerHourValue:SetText(GetMoneyString(0))
+            LVLSPD_goldPerHourValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_goldPerHourValue:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_goldPerHourValue:SetText(GetMoneyString(0))
+        else
+            LVLSPD_goldPerHourText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_goldPerHourText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_goldPerHourText:SetText("Gold/Hour:")
+
+            LVLSPD_goldPerHourValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_goldPerHourValue:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.goldPerHour
+            LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_goldPerHourValue:SetText(GetMoneyString(0))
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showSessionGold and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_sessionGoldText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_sessionGoldText:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_sessionGoldText:SetText("Session Gold:")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_sessionGoldText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_sessionGoldText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionGoldText:SetText("Session Gold:")
 
-        LVLSPD_sessionGoldValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_sessionGoldValue:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_sessionGoldValue:SetText(GetMoneyString(0))
+            LVLSPD_sessionGoldValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_sessionGoldValue:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionGoldValue:SetText(GetMoneyString(0))
+        else
+            LVLSPD_sessionGoldText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_sessionGoldText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_sessionGoldText:SetText("Session Gold:")
+
+            LVLSPD_sessionGoldValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_sessionGoldValue:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionGold
+            LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_sessionGoldValue:SetText(GetMoneyString(0))
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showPlayerDeaths and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_playerDeathsText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_playerDeathsText:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_playerDeathsText:SetText("Player Deaths:")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_playerDeathsText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_playerDeathsText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_playerDeathsText:SetText("Player Deaths:")
 
-        LVLSPD_playerDeathsValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_playerDeathsValue:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_playerDeathsValue:SetText(ls.deathCount)
+            LVLSPD_playerDeathsValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_playerDeathsValue:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_playerDeathsValue:SetText(LVLSPD_deathCount)
+        else
+            LVLSPD_playerDeathsText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_playerDeathsText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_playerDeathsText:SetText("Player Deaths:")
+
+            LVLSPD_playerDeathsValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_playerDeathsValue:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.playerDeaths
+            LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_playerDeathsValue:SetText(LVLSPD_deathCount)
+        end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     if LVLSPD_lsElements.showSessionHonor and LVLSPD_numberCreatedElements < 6 then
-        LVLSPD_sessionHonorText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
-        LVLSPD_sessionHonorText:SetFontHeight(11)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_sessionHonorText:SetText("Session Honor:")
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_sessionHonorText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_sessionHonorText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionHonorText:SetText("Session Honor:")
 
-        LVLSPD_sessionHonorValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-        LVLSPD_sessionHonorValue:SetFontHeight(14)
-        currentPoint = LVLSPD_calculateElementPoint()
-        LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-        LVLSPD_sessionHonorValue:SetText(LVLSPD_sessionHonor)
+            LVLSPD_sessionHonorValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_sessionHonorValue:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
+        else
+            LVLSPD_sessionHonorText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_sessionHonorText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_sessionHonorText:SetText("Session Honor:")
+
+            LVLSPD_sessionHonorValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_sessionHonorValue:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionHonor
+            LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
+        end
+    end
+
+    if LVLSPD_lsElements.showFarmXpPerMin and LVLSPD_numberCreatedElements < 6 then
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_farmXpPerMinText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_farmXpPerMinText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_farmXpPerMinText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_farmXpPerMinText:SetText("XP/m (Farm):")
+
+            LVLSPD_farmXpPerMinValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_farmXpPerMinValue:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_farmXpPerMinValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_farmXpPerMinValue:SetText(0)
+        else
+            LVLSPD_farmXpPerMinText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_farmXpPerMinText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_farmXpPerMinText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_farmXpPerMinText:SetText("XP/m (Farm):")
+
+            LVLSPD_farmXpPerMinValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_farmXpPerMinValue:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.farmXpPerMin
+            LVLSPD_farmXpPerMinValue:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_farmXpPerMinValue:SetText(0)
+        end
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+    end
+
+    if LVLSPD_lsElements.showXpPerMin and LVLSPD_numberCreatedElements < 6 then
+        if ( not LVLSPD_lsElements.showAsBar ) then
+            LVLSPD_xpPerMinText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_xpPerMinText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpPerMinText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_xpPerMinText:SetText("XP/m (All):")
+
+            LVLSPD_xpPerMinValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_xpPerMinValue:SetFontHeight(14)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpPerMinValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            LVLSPD_xpPerMinValue:SetText(0)
+        else
+            LVLSPD_xpPerMinText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_xpPerMinText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            LVLSPD_xpPerMinText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            LVLSPD_xpPerMinText:SetText("XP/m (All):")
+
+            LVLSPD_xpPerMinValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_xpPerMinValue:SetFontHeight(14)
+            local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xpPerMin
+            LVLSPD_xpPerMinValue:SetPoint(currentPoint[0], valuePoint, 0)
+            LVLSPD_xpPerMinValue:SetText(0)
+        end
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 
     LVLSPD_getStuff()
@@ -352,6 +565,18 @@ function LVLSPD_LSHideAllElements()
     if(LVLSPD_sessionHonorValue ~= nil) then
         LVLSPD_sessionHonorValue:Hide()
     end
+    if(LVLSPD_farmXpPerMinText ~= nil) then
+        LVLSPD_farmXpPerMinText:Hide()
+    end
+    if(LVLSPD_farmXpPerMinValue ~= nil) then
+        LVLSPD_farmXpPerMinValue:Hide()
+    end
+    if(LVLSPD_xpPerMinText ~= nil) then
+        LVLSPD_xpPerMinText:Hide()
+    end
+    if(LVLSPD_xpPerMinValue ~= nil) then
+        LVLSPD_xpPerMinValue:Hide()
+    end
 end
 
 function LVLSPD_LSRebuild_Elements()
@@ -364,26 +589,44 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showAllXPS and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_xpps1) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_xpps1:Show()
         else
             LVLSPD_xpps1 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_xpps1:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_xpps1:SetText("XP/s (All)")
         end
 
         if(LVLSPD_xpps) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_xpps:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_xpps:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xppsA
+                LVLSPD_xpps:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_xpps:Show()
         else
             LVLSPD_xpps = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_xpps:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_xpps:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_xpps:SetText(0)    
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_xpps:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xppsA
+                LVLSPD_xpps:SetPoint(currentPoint[0], valuePoint, 0)
+            end
+            LVLSPD_xpps:SetText(0)
         end
         
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
@@ -391,24 +634,43 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showFarmXPS and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_xpps4) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_xpps4:Show()
         else
             LVLSPD_xpps4 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_xpps4:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_xpps4:SetText("XP/s (Farm)")
         end
         if(LVLSPD_xpps3) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_xpps3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_xpps3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xppsF
+                LVLSPD_xpps3:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_xpps3:Show()
         else
             LVLSPD_xpps3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_xpps3:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_xpps3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_xpps3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xppsF
+                LVLSPD_xpps3:SetPoint(currentPoint[0], valuePoint, 0)
+
+            end
             LVLSPD_xpps3:SetText(0)
         end
 
@@ -417,24 +679,42 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showTimeToLevel and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_kills_toLevel1) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_kills_toLevel1:Show()
         else
             LVLSPD_kills_toLevel1 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_kills_toLevel1:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_kills_toLevel1:SetText("Next Level (m)")
         end
         if(LVLSPD_kills_toLevel) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_kills_toLevel:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_kills_toLevel:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.nextLevel
+                LVLSPD_kills_toLevel:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_kills_toLevel:Show()
         else
             LVLSPD_kills_toLevel = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_kills_toLevel:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_kills_toLevel:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_kills_toLevel:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.nextLevel
+                LVLSPD_kills_toLevel:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_kills_toLevel:SetText(0)
         end
 
@@ -443,24 +723,42 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showKillsToLevel and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_kills_toLevel3) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_kills_toLevel3:Show()
         else
             LVLSPD_kills_toLevel3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_kills_toLevel3:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_kills_toLevel3:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_kills_toLevel3:SetText("Kills Left:")
         end
         if(LVLSPD_kills_toLevel2) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.killsLeft
+                LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_kills_toLevel2:Show()
         else
             LVLSPD_kills_toLevel2 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_kills_toLevel2:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.killsLeft
+                LVLSPD_kills_toLevel2:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_kills_toLevel2:SetText(0)
         end
 
@@ -469,24 +767,42 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showLastKillXP and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_lastKillXPText) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_lastKillXPText:Show()
         else
             LVLSPD_lastKillXPText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_lastKillXPText:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_lastKillXPText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_lastKillXPText:SetText("Last Kill XP:")
         end
         if(LVLSPD_lastKillXPValue) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.lastKill
+                LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_lastKillXPValue:Show()
         else
             LVLSPD_lastKillXPValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_lastKillXPValue:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.lastKill
+                LVLSPD_lastKillXPValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_lastKillXPValue:SetText(0)
         end
 
@@ -495,24 +811,42 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showTotalXP and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_totalXPText) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_totalXPText:Show()
         else
             LVLSPD_totalXPText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_totalXPText:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_totalXPText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_totalXPText:SetText("Total XP:")
         end
         if(LVLSPD_totalXPValue) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_totalXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_totalXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.totalXP
+                LVLSPD_totalXPValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_totalXPValue:Show()
         else
             LVLSPD_totalXPValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_totalXPValue:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_totalXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_totalXPValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.totalXP
+                LVLSPD_totalXPValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
         end
 
@@ -521,24 +855,42 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showGoldPerHour and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_goldPerHourText) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_goldPerHourText:Show()
         else
             LVLSPD_goldPerHourText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_goldPerHourText:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_goldPerHourText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_goldPerHourText:SetText("Gold/Hour:")
         end
         if(LVLSPD_goldPerHourValue) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.goldPerHour
+                LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_goldPerHourValue:Show()
         else
             LVLSPD_goldPerHourValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_goldPerHourValue:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.goldPerHour
+                LVLSPD_goldPerHourValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_goldPerHourValue:SetText(GetMoneyString(0))
         end
 
@@ -547,24 +899,42 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showSessionGold and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_sessionGoldText) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_sessionGoldText:Show()
         else
             LVLSPD_sessionGoldText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_sessionGoldText:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_sessionGoldText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_sessionGoldText:SetText("Session Gold:")
         end
         if(LVLSPD_sessionGoldValue) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionGold
+                LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_sessionGoldValue:Show()
         else
             LVLSPD_sessionGoldValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_sessionGoldValue:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionGold
+                LVLSPD_sessionGoldValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_sessionGoldValue:SetText(GetMoneyString(0))
         end
 
@@ -573,25 +943,43 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showPlayerDeaths and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_playerDeathsText) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_playerDeathsText:Show()
         else
             LVLSPD_playerDeathsText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_playerDeathsText:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_playerDeathsText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_playerDeathsText:SetText("Player Deaths:")
         end
         if(LVLSPD_playerDeathsValue) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.playerDeaths
+                LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
             LVLSPD_playerDeathsValue:Show()
         else
             LVLSPD_playerDeathsValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_playerDeathsValue:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_playerDeathsValue:SetText(ls.deathCount)
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.playerDeaths
+                LVLSPD_playerDeathsValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
+            LVLSPD_playerDeathsValue:SetText(LVLSPD_deathCount)
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
@@ -599,27 +987,136 @@ function LVLSPD_LSRebuild_Elements()
     if(LVLSPD_lsElements.showSessionHonor and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_sessionHonorText) then
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_sessionHonorText:Show()
         else
             LVLSPD_sessionHonorText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GAmeFontGreen")
             LVLSPD_sessionHonorText:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_sessionHonorText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
             LVLSPD_sessionHonorText:SetText("Session Honor:")
         end
         if(LVLSPD_sessionHonorValue) then
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_sessionHonorValue:SetText(LVLSPD_sessionHonor)
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionHonor
+                LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
+            LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
             LVLSPD_sessionHonorValue:Show()
         else
             LVLSPD_sessionHonorValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_sessionHonorValue:SetFontHeight(14)
-            currentPoint = LVLSPD_calculateElementPoint()
-            LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_sessionHonorValue:SetText(LVLSPD_sessionHonor)
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionHonor
+                LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
+            LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
         end
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+    end
+    if (LVLSPD_lsElements.showFarmXpPerMin and LVLSPD_numberCreatedElements < 6) then
+        if(LVLSPD_farmXpPerMinText) then
+            currentPoint = LVLSPD_calculateElementPoint()
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_farmXpPerMinText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_farmXpPerMinText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
+            LVLSPD_farmXpPerMinText:Show()
+        else
+            LVLSPD_farmXpPerMinText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_farmXpPerMinText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_farmXpPerMinText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_farmXpPerMinText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
+            LVLSPD_farmXpPerMinText:SetText("XP/m (Farm):")
+        end
+        if(LVLSPD_farmXpPerMinValue) then
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_farmXpPerMinValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.farmXpPerMin
+                LVLSPD_farmXpPerMinValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
+            LVLSPD_farmXpPerMinValue:Show()
+        else
+            LVLSPD_farmXpPerMinValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_farmXpPerMinValue:SetFontHeight(14)
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_farmXpPerMinValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.farmXpPerMin
+                LVLSPD_farmXpPerMinValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
+            LVLSPD_farmXpPerMinValue:SetText(0)
+        end
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+    end
+
+    if (LVLSPD_lsElements.showXpPerMin and LVLSPD_numberCreatedElements < 6) then
+        if(LVLSPD_xpPerMinText) then
+            currentPoint = LVLSPD_calculateElementPoint()
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_xpPerMinText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_xpPerMinText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
+            LVLSPD_xpPerMinText:Show()
+        else
+            LVLSPD_xpPerMinText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
+            LVLSPD_xpPerMinText:SetFontHeight(11)
+            currentPoint = LVLSPD_calculateElementPoint()
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                LVLSPD_xpPerMinText:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                LVLSPD_xpPerMinText:SetPoint(currentPoint[0], currentPoint[1], 0)
+            end
+            LVLSPD_xpPerMinText:SetText("XP/m (All):")
+        end
+        if(LVLSPD_xpPerMinValue) then
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_xpPerMinValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xpPerMin
+                LVLSPD_xpPerMinValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
+            LVLSPD_xpPerMinValue:Show()
+        else
+            LVLSPD_xpPerMinValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+            LVLSPD_xpPerMinValue:SetFontHeight(14)
+            if ( not LVLSPD_lsElements.showAsBar ) then
+                currentPoint = LVLSPD_calculateElementPoint()
+                LVLSPD_xpPerMinValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
+            else
+                local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.xpPerMin
+                LVLSPD_xpPerMinValue:SetPoint(currentPoint[0], valuePoint, 0)
+            end
+            LVLSPD_xpPerMinValue:SetText(0)
+        end
+
+        LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
     end
 end
 

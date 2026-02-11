@@ -8,7 +8,10 @@ LVLSPD_lsElements = {
     showGoldPerHour = false,
     showSessionGold = false,
     showPlayerDeaths = false,
-    showSessionHonor = false
+    showSessionHonor = false,
+    showXpPerMin = false,
+    showFarmXpPerMin = false,
+    showAsBar = false
 }
 
 LVLSPD_lsOneElePoints = {
@@ -129,4 +132,28 @@ LVLSPD_lsSixElePointsCom = {
     [9] = {0, -25, false},
     [10] = {115, -10, false},
     [11] = {115, -25, false}
+}
+
+LVLSPD_lsBarPoints = {
+    [0] = {"LEFT", 10, false},
+    [1] = {"LEFT", 260, false},
+    [2] = {"LEFT", 510, false},
+    [3] = {"LEFT", 760, false},
+    [4] = {"LEFT", 1010, false},
+    [5] = {"LEFT", 1260, false}
+}
+
+LVLSPD_elementDeviation = {
+    xppsA = 65,
+    xppsF = 75,
+    nextLevel = 93,
+    killsLeft = 60,
+    lastKill = 75,
+    totalXP = 55,
+    goldPerHour = 70,
+    sessionGold = 85,
+    playerDeaths = 85,
+    sessionHonor = 90,
+    farmXpPerMin = 75,
+    xpPerMin = 65
 }

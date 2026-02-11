@@ -62,11 +62,41 @@ LVLSPD_LSOptions = function()
                                 LVLSPD_LSRebuild_Elements()
                                 end,
                             },
+                            showXpPerMin = {
+                                type = "toggle",
+                                name = "Show XP/m (All)",
+                                desc = "Show experience per minute overall",
+                                order = 1.2,
+                                get = function() return LVLSPD_lsElements.showXpPerMin end,
+                                set = function(info, val)
+                                if (LVLSPD_numberCreatedElements < 6) then
+                                    LVLSPD_lsElements.showXpPerMin = val
+                                else
+                                    LVLSPD_lsElements.showXpPerMin = false
+                                end
+                                LVLSPD_LSRebuild_Elements()
+                                end,
+                            },
+                            showFarmXpPerMin = {
+                                type = "toggle",
+                                name = "Show XP/m (Farm)",
+                                desc = "Show experience per minute while in combat",
+                                order = 1.3,
+                                get = function() return LVLSPD_lsElements.showFarmXpPerMin end,
+                                set = function(info, val)
+                                if (LVLSPD_numberCreatedElements < 6) then
+                                    LVLSPD_lsElements.showFarmXpPerMin = val
+                                else
+                                    LVLSPD_lsElements.showFarmXpPerMin = false
+                                end
+                                LVLSPD_LSRebuild_Elements()
+                                end,
+                            },
                             showTimeToLevel = {
                                 type = "toggle",
                                 name = "Show Time to Level",
                                 desc = "Show estimated time to level based on overall XPS",
-                                order = 1.2,
+                                order = 1.4,
                                 get = function() return LVLSPD_lsElements.showTimeToLevel end,
                                 set = function(info, val)
                                 if (LVLSPD_numberCreatedElements < 6) then
@@ -81,7 +111,7 @@ LVLSPD_LSOptions = function()
                                 type = "toggle",
                                 name = "Show Kills to Level",
                                 desc = "Show estimated kills to level based on farm XPS",
-                                order = 1.3,
+                                order = 1.5,
                                 get = function() return LVLSPD_lsElements.showKillsToLevel end,
                                 set = function(info, val)
                                 if (LVLSPD_numberCreatedElements < 6) then
@@ -96,7 +126,7 @@ LVLSPD_LSOptions = function()
                                 type = "toggle",
                                 name = "Show Last Kill XP",
                                 desc = "Show experience gained from last kill",
-                                order = 1.4,
+                                order = 1.6,
                                 get = function() return LVLSPD_lsElements.showLastKillXP end,
                                 set = function(info, val)
                                 if (LVLSPD_numberCreatedElements < 6) then
@@ -111,7 +141,7 @@ LVLSPD_LSOptions = function()
                                 type = "toggle",
                                 name = "Show Total XP",
                                 desc = "Show total experience gained since login",
-                                order = 1.5,
+                                order = 1.7,
                                 get = function() return LVLSPD_lsElements.showTotalXP end,
                                 set = function(info, val)
                                 if (LVLSPD_numberCreatedElements < 6) then
@@ -202,17 +232,44 @@ LVLSPD_LSOptions = function()
                     }
                 }
             },
-            toggleTitle = {
-                type = "toggle",
-                name = "Hide Title",
-                desc = "Toggle the visibility of title on main frame",
+            sizingGroup = {
+                type = "group",
+                name = "Sizing Options",
+                inline = true,
                 order = 2,
-                get = function() return LVLSPD_getHideTitle() end,
-                set = function(info, val)
-                    LVLSPD_setHideTitle(val)
-                    LVLSPD_toggleHideTitle()
-                    LVLSPD_LSRebuild_Elements()
-                end,
+                args = {
+                    showAsBar = {
+                        type = "toggle",
+                        name = "Show As Bar",
+                        desc = "Show main frame as a bar. Hides title. Reload required.",
+                        order = 1,
+                        get = function() return LVLSPD_lsElements.showAsBar end,
+                        set = function(info, val)
+                            LVLSPD_lsElements.showAsBar = val
+                            if val then
+                                LVLSPD_setHideTitle(true)
+                                LVLSPD_toggleHideTitle()
+                            end
+                            LVLSPD_LSRebuild_Elements()
+                        end,
+                    },
+                    toggleTitle = {
+                        type = "toggle",
+                        name = "Hide Title",
+                        desc = "Toggle the visibility of title on main frame",
+                        order = 2,
+                        get = function() return LVLSPD_getHideTitle() end,
+                        set = function(info, val)
+                            if (not LVLSPD_lsElements.showAsBar) then
+                                LVLSPD_setHideTitle(val)
+                            else
+                                LVLSPD_setHideTitle(true)
+                            end
+                            LVLSPD_toggleHideTitle()
+                            LVLSPD_LSRebuild_Elements()
+                        end,
+                    }
+                }
             },
             cVarGroup = {
                 type = "group",

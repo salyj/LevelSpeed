@@ -12,6 +12,7 @@ function LVLSPD_OnLogin()
 		LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
 	end
 	LVLSPD_toggleHideTitle()
+	LVLSPD_setMainFrameSize()
 end
 
 ls.lastKillXP = 0
@@ -151,12 +152,19 @@ if b == "CHAT_MSG_COMBAT_XP_GAIN"then
 		LVLSPD_lastKill = time()
 		LVLSPD_countKills = LVLSPD_countKills + 1
 
+		local xpPerSec = math.floor(LVLSPD_mob_xp / (time() -LVLSPD_start2)*100)/100
+		local xpPerMin = math.floor(LVLSPD_mob_xp / (time() -LVLSPD_start2)*60*100)/100
+
 		if LVLSPD_lsElements.showKillsToLevel then
 			LVLSPD_kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")+c))/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100))
 		end
 
 		if LVLSPD_lsElements.showFarmXPS then
-			LVLSPD_xpps3:SetText(math.floor(LVLSPD_mob_xp / (time() -LVLSPD_start2)*100)/100)
+			LVLSPD_xpps3:SetText(math.floor(xpPerSec))
+		end
+
+		if LVLSPD_lsElements.showFarmXpPerMin then
+			LVLSPD_farmXpPerMinValue:SetText(xpPerMin)
 		end
 		LVLSPD_updateNums()
 	else
@@ -272,8 +280,13 @@ function LVLSPD_updateNums()
 
 	LVLSPD_diffTime = time() - LVLSPD_start 
 	LVLSPD_XPS = LVLSPD_XP / LVLSPD_diffTime
+
 	if LVLSPD_lsElements.showAllXPS then
 		LVLSPD_xpps:SetText(math.floor(LVLSPD_XPS*100)/100)
+	end
+
+	if LVLSPD_lsElements.showXpPerMin then
+		LVLSPD_xpPerMinValue:SetText((math.floor(LVLSPD_XPS*100)/100) * 60)
 	end
 	
 	LVLSPD_maxXP = UnitXPMax("player")

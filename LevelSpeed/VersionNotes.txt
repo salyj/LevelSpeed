@@ -1,4 +1,11 @@
 --------------
+Version 0.6.0
+--------------
+    - Added option to show addon main frame as a bar (Requires a reload to ensure proper functionality)
+    - Added XP/m (Farm) and XP/m (All) tracking and display
+    - Fixed bug that caused playerDeath and sessionHonor to not display on load
+
+--------------
 Version 0.5.1
 --------------
     - Tweaked component sizing and spacing for better readability
