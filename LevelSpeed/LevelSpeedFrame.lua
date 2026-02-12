@@ -507,75 +507,99 @@ end
 function LVLSPD_LSHideAllElements()
     if(LVLSPD_xpps1 ~= nil) then
         LVLSPD_xpps1:Hide()
+        LVLSPD_xpps1:ClearAllPoints()
     end
     if(LVLSPD_xpps ~= nil) then
         LVLSPD_xpps:Hide()
+        LVLSPD_xpps:ClearAllPoints()
     end
     if(LVLSPD_xpps4 ~= nil) then
         LVLSPD_xpps4:Hide()
+        LVLSPD_xpps4:ClearAllPoints()
     end
     if(LVLSPD_xpps3 ~= nil) then
         LVLSPD_xpps3:Hide()
+        LVLSPD_xpps3:ClearAllPoints()
     end
     if(LVLSPD_kills_toLevel1 ~= nil) then
         LVLSPD_kills_toLevel1:Hide()
+        LVLSPD_kills_toLevel1:ClearAllPoints()
     end
     if(LVLSPD_kills_toLevel ~= nil) then
         LVLSPD_kills_toLevel:Hide()
+        LVLSPD_kills_toLevel:ClearAllPoints()
     end
     if(LVLSPD_kills_toLevel3 ~= nil) then
         LVLSPD_kills_toLevel3:Hide()
+        LVLSPD_kills_toLevel3:ClearAllPoints()
     end
     if(LVLSPD_kills_toLevel2 ~= nil) then
         LVLSPD_kills_toLevel2:Hide()
+        LVLSPD_kills_toLevel2:ClearAllPoints()
     end
     if(LVLSPD_lastKillXPText ~= nil) then
         LVLSPD_lastKillXPText:Hide()
+        LVLSPD_lastKillXPText:ClearAllPoints()
     end
     if(LVLSPD_lastKillXPValue ~= nil) then
         LVLSPD_lastKillXPValue:Hide()
+        LVLSPD_lastKillXPValue:ClearAllPoints()
     end
     if(LVLSPD_totalXPText ~= nil) then
         LVLSPD_totalXPText:Hide()
+        LVLSPD_totalXPText:ClearAllPoints()
     end
     if(LVLSPD_totalXPValue ~= nil) then
         LVLSPD_totalXPValue:Hide()
+        LVLSPD_totalXPValue:ClearAllPoints()
     end
     if(LVLSPD_goldPerHourText ~= nil) then
         LVLSPD_goldPerHourText:Hide()
+        LVLSPD_goldPerHourText:ClearAllPoints()
     end
     if(LVLSPD_goldPerHourValue ~= nil) then
         LVLSPD_goldPerHourValue:Hide()
+        LVLSPD_goldPerHourValue:ClearAllPoints()
     end
     if(LVLSPD_sessionGoldText ~= nil) then
         LVLSPD_sessionGoldText:Hide()
+        LVLSPD_sessionGoldText:ClearAllPoints()
     end
     if(LVLSPD_sessionGoldValue ~= nil) then
         LVLSPD_sessionGoldValue:Hide()
+        LVLSPD_sessionGoldValue:ClearAllPoints()
     end
     if(LVLSPD_playerDeathsText ~= nil) then
         LVLSPD_playerDeathsText:Hide()
+        LVLSPD_playerDeathsText:ClearAllPoints()
     end
     if(LVLSPD_playerDeathsValue ~= nil) then
         LVLSPD_playerDeathsValue:Hide()
+        LVLSPD_playerDeathsValue:ClearAllPoints()
     end
     if(LVLSPD_sessionHonorText ~= nil) then
         LVLSPD_sessionHonorText:Hide()
+        LVLSPD_sessionHonorText:ClearAllPoints()
     end
     if(LVLSPD_sessionHonorValue ~= nil) then
         LVLSPD_sessionHonorValue:Hide()
+        LVLSPD_sessionHonorValue:ClearAllPoints()
     end
     if(LVLSPD_farmXpPerMinText ~= nil) then
         LVLSPD_farmXpPerMinText:Hide()
+        LVLSPD_farmXpPerMinText:ClearAllPoints()
     end
     if(LVLSPD_farmXpPerMinValue ~= nil) then
         LVLSPD_farmXpPerMinValue:Hide()
+        LVLSPD_farmXpPerMinValue:ClearAllPoints()
     end
     if(LVLSPD_xpPerMinText ~= nil) then
         LVLSPD_xpPerMinText:Hide()
+        LVLSPD_xpPerMinText:ClearAllPoints()
     end
     if(LVLSPD_xpPerMinValue ~= nil) then
         LVLSPD_xpPerMinValue:Hide()
+        LVLSPD_xpPerMinValue:ClearAllPoints()
     end
 end
 

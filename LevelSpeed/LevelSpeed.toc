@@ -1,7 +1,7 @@
 ## Interface: 20505
 
 ## Title: Level Speed - Anniversary Edition
-## Version: 0.6.0
+## Version: 0.6.1
 
 ## Author: HKRob
 

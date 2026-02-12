@@ -1,4 +1,9 @@
 --------------
+Version 0.6.1
+--------------
+    - Fixed bug requiring reload on switching from bar to frame or from frame to bar
+
+--------------
 Version 0.6.0
 --------------
     - Added option to show addon main frame as a bar (Requires a reload to ensure proper functionality)
