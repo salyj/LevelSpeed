@@ -1,4 +1,11 @@
 --------------
+Version 1.0.0
+--------------
+    - First full release version of Level Speed - Anniversary
+    - Added tabs to options menu
+    - New "About" tab with addon information and thank yous
+
+--------------
 Version 0.6.1
 --------------
     - Fixed bug requiring reload on switching from bar to frame or from frame to bar

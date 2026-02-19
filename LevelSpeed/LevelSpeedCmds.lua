@@ -1,4 +1,4 @@
-LVLSPD_versionNumber = "0.6.1"
+LVLSPD_versionNumber = "1.0.0"
 
 SLASH_LevelSpeed_ResetFrame1 = "/lsreset"
 

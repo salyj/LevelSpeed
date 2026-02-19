@@ -58,7 +58,7 @@ LVLSPD_lsThreeElePointsCom = {
 
 LVLSPD_lsFourElePoints = {
     [0] = {-65, 15, false}, 
-    [1] ={-65, 0, false}, 
+    [1] = {-65, 0, false}, 
     [2] = {65, 15, false}, 
     [3] = {65, 0, false}, 
     [4] = {-65, -20, false}, 

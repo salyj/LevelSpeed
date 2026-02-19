@@ -1,7 +1,7 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
 function LVLSPD_CreateWindow()
-    local OptionsGUI = LVLSPD_LSOptions()
+    local OptionsGUI = LVLSPD_LSTabs()
     LibStub("AceConfig-3.0"):RegisterOptionsTable("LevelSpeed", OptionsGUI)
     LibStub("AceConfigDialog-3.0"):AddToBlizOptions("LevelSpeed", "Level Speed")
 
@@ -14,9 +14,22 @@ function LVLSPD_CreateWindow()
     table.insert(UISpecialFrames, "LVLSPD_LSOptionsFrame")
 end
 
+LVLSPD_LSTabs = function()
+    return {
+        name = "Level Speed Options",
+        handler = LS,
+        type = "group",
+        childGroups = "tab",
+        args = {
+            Options_tab = LVLSPD_LSOptions(),
+            About_tab = LVLSPD_LSAbout(),
+        }
+    }
+end
+
 LVLSPD_LSOptions = function()
     return {
-        name = "LevelSpeed Options",
+        name = "Options",
         type = "group",
         order = 1,
         args = {
@@ -307,6 +320,47 @@ LVLSPD_LSOptions = function()
                 func = function()
                     C_UI.Reload()
                 end,
+            },
+        }
+    }
+end
+
+LVLSPD_LSAbout = function()
+    return {
+        name = "About",
+        type = "group",
+        order = 2,
+        args = {
+            aboutHeader = {
+                type = "header",
+                name = "About",
+                order = 1,
+            },
+            aboutText = {
+                type = "description",
+                name = "Level Speed - Anniversary version "..LVLSPD_versionNumber.."\nCreated by HKRob\n\n\nThis addon uses the GNU GPLv3 license. For more information, see: https://www.gnu.org/licenses/gpl-3.0.en.html",
+                order = 2,
+                fontSize = "medium",
+            },
+            thankYouHeader = {
+                type = "header",
+                name = "Note from the author",
+                order = 3,
+            },
+            thankYouText = {
+                type = "description",
+                name = "It has been a long and exciting journey creating this addon. I personally really enjoyed working on it and providing the best experience I can through this addon. I will continue to work on and improve this addon over time, as well as keep it up to date with all the different versions of WoW.\n\nI want to thank you for downloading and using this addon. I hope you value it as much as I valued making it.\n\nI would also like to thank the following people that assisted with the creation of this addon:\n\n    \124cff00ffffMy wife Olivia\124r - For putting up with me while I worked on this\n    \124cff00ffffYogi\124r - For testing, feedback, recommendations, and support\n    \124cff00ffffKrøgue\124r - For testing, feedback, and recommendations\n    \124cff00ffffMorphen\124r - For testing, feedback, and recommendations\n    \124cff00ffffKhileez\124r - For their work on the addon that inspired this addon\n    \124cff00ffffProchilles\124r - For their work on the addon that inspired this addon\n\n\nMost of all, I want to thank you, the user for the excitment I get from seeing that you have downloaded and are using Level Speed - Anniversary. It truly does mean so much to me.",
+                order = 4,
+                fontSize = "medium",
+            },
+            donateLink = {
+                type = "input",
+                name = "Support Development at Buy Me A Coffee",
+                desc = "Please consider supporting the development of this addon by using this link!",
+                order = 5,
+                width = "full",
+                get = function() return "https://www.buymeacoffee.com/hellknightj" end,
+                set = function() end,
             },
         }
     }

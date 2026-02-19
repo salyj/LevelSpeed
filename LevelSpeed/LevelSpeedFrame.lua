@@ -1,4 +1,3 @@
-local _, ls = ...
 local numberOfElements = 0
 local currentPoint = {}
 LVLSPD_hideTitle = false
@@ -422,7 +421,7 @@ function LVLSPD_LSCreate_Elements()
             LVLSPD_sessionHonorValue:SetFontHeight(14)
             currentPoint = LVLSPD_calculateElementPoint()
             LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
+            LVLSPD_sessionHonorValue:SetText(LS.sessionHonor)
         else
             LVLSPD_sessionHonorText = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontGreen")
             LVLSPD_sessionHonorText:SetFontHeight(11)
@@ -434,7 +433,7 @@ function LVLSPD_LSCreate_Elements()
             LVLSPD_sessionHonorValue:SetFontHeight(14)
             local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionHonor
             LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], valuePoint, 0)
-            LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
+            LVLSPD_sessionHonorValue:SetText(LS.sessionHonor)
         end
     end
 
@@ -1036,7 +1035,7 @@ function LVLSPD_LSRebuild_Elements()
                 local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionHonor
                 LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], valuePoint, 0)
             end
-            LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
+            LVLSPD_sessionHonorValue:SetText(LS.sessionHonor)
             LVLSPD_sessionHonorValue:Show()
         else
             LVLSPD_sessionHonorValue = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
@@ -1048,7 +1047,7 @@ function LVLSPD_LSRebuild_Elements()
                 local valuePoint = currentPoint[1] + LVLSPD_elementDeviation.sessionHonor
                 LVLSPD_sessionHonorValue:SetPoint(currentPoint[0], valuePoint, 0)
             end
-            LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
+            LVLSPD_sessionHonorValue:SetText(LS.sessionHonor)
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1

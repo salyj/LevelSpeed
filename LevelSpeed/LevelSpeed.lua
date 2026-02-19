@@ -1,5 +1,5 @@
 LevelSpeed = LibStub("AceAddon-3.0"):NewAddon("LevelSpeed")
-local _, ls = ...
+_, LS = ...
 
 function LevelSpeed:OnInitialize()
 	LVLSPD_LSCreate_Elements()
@@ -15,13 +15,13 @@ function LVLSPD_OnLogin()
 	LVLSPD_setMainFrameSize()
 end
 
-ls.lastKillXP = 0
-ls.justLeveledUp = false
-ls.currentMoney = 0
-ls.deltaMoney = 0
+LS.lastKillXP = 0
+LS.justLeveledUp = false
+LS.currentMoney = 0
+LS.deltaMoney = 0
 LVLSPD_deathCount = 0
-ls.sessionMoney = 0
-ls.sessionHonor = 0
+LS.sessionMoney = 0
+LS.sessionHonor = 0
 
 function LVLSPD_getStuff()
 LVLSPD_XP = 0
@@ -33,12 +33,12 @@ LVLSPD_mob_xp = 0
 LVLSPD_lastKill = 0
 LVLSPD_countKills = 0
 LVLSPD_reset = 0
-ls.currentMoney = GetMoney()
-ls.deltaMoney = 0
-ls.sessionMoney = 0
+LS.currentMoney = GetMoney()
+LS.deltaMoney = 0
+LS.sessionMoney = 0
 LVLSPD_loginMoney = GetMoney()
 LVLSPD_loginTime = time()
-ls.sessionHonor = 0
+LS.sessionHonor = 0
 --
 LVLSPD_updateNums()
 
@@ -95,12 +95,12 @@ if  b == "CHAT_MSG_SYSTEM" and string.find(c, "Experience gained:") then
 end
 
 if b == "PLAYER_LEVEL_UP" then
-	ls.justLeveledUp = true
+	LS.justLeveledUp = true
 	
 end
 
 if b == "PLAYER_XP_UPDATE" then
-	if ls.justLeveledUp == true then
+	if LS.justLeveledUp == true then
 		local newLevelMaxXP = UnitXPMax("player")
 		
 		if LVLSPD_lsElements.showTimeToLevel then
@@ -115,7 +115,7 @@ if b == "PLAYER_XP_UPDATE" then
 		end
 		
 		-- Reset the flag
-		ls.justLeveledUp = false
+		LS.justLeveledUp = false
 	end
 
 	if LVLSPD_lsElements.showTotalXP then
@@ -145,8 +145,8 @@ if b == "CHAT_MSG_COMBAT_XP_GAIN"then
 		LVLSPD_mob_xp = LVLSPD_mob_xp + c
 
 		if LVLSPD_lsElements.showLastKillXP then
-			ls.lastKillXP = c;
-			LVLSPD_lastKillXPValue:SetText(ls.lastKillXP)
+			LS.lastKillXP = c;
+			LVLSPD_lastKillXPValue:SetText(LS.lastKillXP)
 		end
 		
 		LVLSPD_lastKill = time()
@@ -185,13 +185,13 @@ if b == "CHAT_MSG_COMBAT_HONOR_GAIN" then
 	-- 	_,_,_,_,c,_,_ = string.split(" ", c, 7)
 	-- end
 
-	-- ls.sessionHonor = ls.sessionHonor + tonumber(c)
+	-- LS.sessionHonor = LS.sessionHonor + tonumber(c)
 
-	-- LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
+	-- LVLSPD_sessionHonorValue:SetText(LS.sessionHonor)
 
 	c = c:match("%d+")
-	ls.sessionHonor = ls.sessionHonor + tonumber(c)
-	LVLSPD_sessionHonorValue:SetText(ls.sessionHonor)
+	LS.sessionHonor = LS.sessionHonor + tonumber(c)
+	LVLSPD_sessionHonorValue:SetText(LS.sessionHonor)
 
 end
 
@@ -206,37 +206,37 @@ if b == "PLAYER_MONEY" then
 	local isNegative = false
 	local isDeltaNegative = false
 
-	ls.deltaMoney = (((GetMoney() - LVLSPD_loginMoney) / (time() - LVLSPD_loginTime)) * 60 * 60)
+	LS.deltaMoney = (((GetMoney() - LVLSPD_loginMoney) / (time() - LVLSPD_loginTime)) * 60 * 60)
 
-	ls.sessionMoney = GetMoney() - LVLSPD_loginMoney
+	LS.sessionMoney = GetMoney() - LVLSPD_loginMoney
 
-	if ls.deltaMoney < 0 then
+	if LS.deltaMoney < 0 then
 		isDeltaNegative = true
-		ls.deltaMoney = ls.deltaMoney * -1
+		LS.deltaMoney = LS.deltaMoney * -1
 	end
 
-	if ls.sessionMoney < 0 then
+	if LS.sessionMoney < 0 then
 		isNegative = true
-		ls.sessionMoney = ls.sessionMoney * -1
+		LS.sessionMoney = LS.sessionMoney * -1
 	end
 
 	if LVLSPD_lsElements.showGoldPerHour then
 		if isDeltaNegative then
-			LVLSPD_goldPerHourValue:SetText("-"..GetMoneyString(ls.deltaMoney))
+			LVLSPD_goldPerHourValue:SetText("-"..GetMoneyString(LS.deltaMoney))
 		else
-			LVLSPD_goldPerHourValue:SetText(GetMoneyString(ls.deltaMoney))
+			LVLSPD_goldPerHourValue:SetText(GetMoneyString(LS.deltaMoney))
 		end
 	end
 
 	if LVLSPD_lsElements.showSessionGold then
 		if isNegative then
-			LVLSPD_sessionGoldValue:SetText("-"..GetMoneyString(ls.sessionMoney))
+			LVLSPD_sessionGoldValue:SetText("-"..GetMoneyString(LS.sessionMoney))
 		else
-			LVLSPD_sessionGoldValue:SetText(GetMoneyString(ls.sessionMoney))
+			LVLSPD_sessionGoldValue:SetText(GetMoneyString(LS.sessionMoney))
 		end
 	end
 
-    ls.currentMoney = GetMoney()
+    LS.currentMoney = GetMoney()
 end
 
 if b == "PLAYER_DEAD" then
