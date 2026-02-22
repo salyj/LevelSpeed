@@ -145,7 +145,7 @@ function LVLSPD_LSCreate_Elements()
             LVLSPD_xpps1:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
             LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_xpps1:SetText("XP/s (All)")
+            LVLSPD_xpps1:SetText("XP/s (All):")
 
             LVLSPD_xpps = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_xpps:SetFontHeight(14)
@@ -157,7 +157,7 @@ function LVLSPD_LSCreate_Elements()
             LVLSPD_xpps1:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
             LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], 0)
-            LVLSPD_xpps1:SetText("XP/s (All)")
+            LVLSPD_xpps1:SetText("XP/s (All):")
 
             LVLSPD_xpps = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_xpps:SetFontHeight(14)
@@ -167,6 +167,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showFarmXPS and LVLSPD_numberCreatedElements < 6 then
@@ -175,7 +176,7 @@ function LVLSPD_LSCreate_Elements()
             LVLSPD_xpps4:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
             LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_xpps4:SetText("XP/s (Farm)")
+            LVLSPD_xpps4:SetText("XP/s (Farm):")
 
             LVLSPD_xpps3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_xpps3:SetFontHeight(14)
@@ -187,7 +188,7 @@ function LVLSPD_LSCreate_Elements()
             LVLSPD_xpps4:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
             LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], 0)
-            LVLSPD_xpps4:SetText("XP/s (Farm)")
+            LVLSPD_xpps4:SetText("XP/s (Farm):")
 
             LVLSPD_xpps3 = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_xpps3:SetFontHeight(14)
@@ -197,6 +198,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showTimeToLevel and LVLSPD_numberCreatedElements < 6 then
@@ -205,7 +207,7 @@ function LVLSPD_LSCreate_Elements()
             LVLSPD_kills_toLevel1:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
             LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], currentPoint[2])
-            LVLSPD_kills_toLevel1:SetText("Next Level (m)")
+            LVLSPD_kills_toLevel1:SetText("Next Level (m):")
 
             LVLSPD_kills_toLevel = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_kills_toLevel:SetFontHeight(14)
@@ -217,7 +219,7 @@ function LVLSPD_LSCreate_Elements()
             LVLSPD_kills_toLevel1:SetFontHeight(11)
             currentPoint = LVLSPD_calculateElementPoint()
             LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], 0)
-            LVLSPD_kills_toLevel1:SetText("Next Level (m)")
+            LVLSPD_kills_toLevel1:SetText("Next Level (m):")
 
             LVLSPD_kills_toLevel = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
             LVLSPD_kills_toLevel:SetFontHeight(14)
@@ -227,6 +229,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showKillsToLevel and LVLSPD_numberCreatedElements < 6 then
@@ -257,6 +260,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showLastKillXP and LVLSPD_numberCreatedElements < 6 then
@@ -287,6 +291,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showTotalXP and LVLSPD_numberCreatedElements < 6 then
@@ -317,6 +322,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showGoldPerHour and LVLSPD_numberCreatedElements < 6 then
@@ -347,6 +353,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showSessionGold and LVLSPD_numberCreatedElements < 6 then
@@ -377,6 +384,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showPlayerDeaths and LVLSPD_numberCreatedElements < 6 then
@@ -407,6 +415,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showSessionHonor and LVLSPD_numberCreatedElements < 6 then
@@ -465,6 +474,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if LVLSPD_lsElements.showXpPerMin and LVLSPD_numberCreatedElements < 6 then
@@ -495,6 +505,7 @@ function LVLSPD_LSCreate_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     LVLSPD_getStuff()
@@ -627,7 +638,7 @@ function LVLSPD_LSRebuild_Elements()
             else
                 LVLSPD_xpps1:SetPoint(currentPoint[0], currentPoint[1], 0)
             end
-            LVLSPD_xpps1:SetText("XP/s (All)")
+            LVLSPD_xpps1:SetText("XP/s (All):")
         end
 
         if(LVLSPD_xpps) then
@@ -653,6 +664,7 @@ function LVLSPD_LSRebuild_Elements()
         end
         
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showFarmXPS and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_xpps4) then
@@ -672,7 +684,7 @@ function LVLSPD_LSRebuild_Elements()
             else
                 LVLSPD_xpps4:SetPoint(currentPoint[0], currentPoint[1], 0)
             end
-            LVLSPD_xpps4:SetText("XP/s (Farm)")
+            LVLSPD_xpps4:SetText("XP/s (Farm):")
         end
         if(LVLSPD_xpps3) then
             if ( not LVLSPD_lsElements.showAsBar ) then
@@ -698,6 +710,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showTimeToLevel and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_kills_toLevel1) then
@@ -717,7 +730,7 @@ function LVLSPD_LSRebuild_Elements()
             else
                 LVLSPD_kills_toLevel1:SetPoint(currentPoint[0], currentPoint[1], 0)
             end
-            LVLSPD_kills_toLevel1:SetText("Next Level (m)")
+            LVLSPD_kills_toLevel1:SetText("Next Level (m):")
         end
         if(LVLSPD_kills_toLevel) then
             if ( not LVLSPD_lsElements.showAsBar ) then
@@ -742,6 +755,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showKillsToLevel and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_kills_toLevel3) then
@@ -786,6 +800,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showLastKillXP and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_lastKillXPText) then
@@ -830,6 +845,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showTotalXP and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_totalXPText) then
@@ -874,6 +890,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showGoldPerHour and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_goldPerHourText) then
@@ -918,6 +935,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showSessionGold and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_sessionGoldText) then
@@ -962,6 +980,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showPlayerDeaths and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_playerDeathsText) then
@@ -1006,6 +1025,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if(LVLSPD_lsElements.showSessionHonor and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_sessionHonorText) then
@@ -1051,6 +1071,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
     if (LVLSPD_lsElements.showFarmXpPerMin and LVLSPD_numberCreatedElements < 6) then
         if(LVLSPD_farmXpPerMinText) then
@@ -1095,6 +1116,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 
     if (LVLSPD_lsElements.showXpPerMin and LVLSPD_numberCreatedElements < 6) then
@@ -1140,6 +1162,7 @@ function LVLSPD_LSRebuild_Elements()
         end
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
+        -- print(LVLSPD_numberCreatedElements)
     end
 end
 
@@ -1161,6 +1184,24 @@ function LVLSPD_toggleHideTitle()
             LVLSPD_titleMain = LVLSPD_titleFrame:CreateFontString("ARTWORK", nil, "GameFontRed")
             LVLSPD_titleMain:SetPoint("CENTER")
             LVLSPD_titleMain:SetText("Level Speed")
+        end
+    end
+end
+
+function LVLSPD_setBarFrame()
+    if(string.match(GetBuildInfo(), "%d+") == "1") then
+        if (LVLSPD_lsElements.showAsBar) then
+            LVLSPD_mainFrame:SetPoint("TOP", 0, 0)
+            MinimapCluster:ClearAllPoints()
+            MinimapCluster:SetPoint("TOPRIGHT", 0, -25)
+            PlayerFrame:ClearAllPoints()
+            PlayerFrame:SetPoint("TOPLEFT", 0, -25)
+        else
+            LVLSPD_mainFrame:SetPoint("TOP", 0, -25)
+            MinimapCluster:ClearAllPoints()
+            MinimapCluster:SetPoint("TOPRIGHT", 0, 0)
+            PlayerFrame:ClearAllPoints()
+            PlayerFrame:SetPoint("TOPLEFT", 0, 0)
         end
     end
 end

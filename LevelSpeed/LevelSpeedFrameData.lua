@@ -1,8 +1,8 @@
 LVLSPD_lsElements = {
-    showFarmXPS = true,
-    showAllXPS = true,
-    showTimeToLevel = true,
-    showKillsToLevel = true,
+    showFarmXPS = false,
+    showAllXPS = false,
+    showTimeToLevel = false,
+    showKillsToLevel = false,
     showLastKillXP = false,
     showTotalXP = false,
     showGoldPerHour = false,

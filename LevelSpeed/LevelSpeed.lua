@@ -251,6 +251,8 @@ end)
 function LVLSPD_updateNums()
 
 	if LVLSPD_reset == 0 then
+		LVLSPD_numberCreatedElements = 0
+		
 		if LVLSPD_lsElements.showTimeToLevel then
 			LVLSPD_kills_toLevel:SetText(0)
 		end

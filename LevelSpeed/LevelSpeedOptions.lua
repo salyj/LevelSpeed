@@ -263,6 +263,7 @@ LVLSPD_LSOptions = function()
                                 LVLSPD_setHideTitle(true)
                                 LVLSPD_toggleHideTitle()
                             end
+                            LVLSPD_setBarFrame()
                             LVLSPD_LSRebuild_Elements()
                         end,
                     },
