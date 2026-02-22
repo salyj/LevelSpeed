@@ -1,4 +1,10 @@
 --------------
+Version 1.1.0
+--------------
+    - Fixed typos in element labels
+    - Added support for Classic Era
+
+--------------
 Version 1.0.0
 --------------
     - First full release version of Level Speed - Anniversary
