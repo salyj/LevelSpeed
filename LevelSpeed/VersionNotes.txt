@@ -1,4 +1,9 @@
 --------------
+Version 1.1.1
+--------------
+    - Fixed bug that reset default UI components on reload if in bar mode
+
+--------------
 Version 1.1.0
 --------------
     - Fixed typos in element labels

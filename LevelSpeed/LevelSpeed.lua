@@ -11,6 +11,7 @@ function LVLSPD_OnLogin()
 	if LVLSPD_lsElements.showTotalXP then
 		LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
 	end
+	LVLSPD_setBarFrame()
 	LVLSPD_toggleHideTitle()
 	LVLSPD_setMainFrameSize()
 end
@@ -252,7 +253,7 @@ function LVLSPD_updateNums()
 
 	if LVLSPD_reset == 0 then
 		LVLSPD_numberCreatedElements = 0
-		
+
 		if LVLSPD_lsElements.showTimeToLevel then
 			LVLSPD_kills_toLevel:SetText(0)
 		end
