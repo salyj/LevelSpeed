@@ -1191,12 +1191,14 @@ end
 function LVLSPD_setBarFrame()
     if(string.match(GetBuildInfo(), "%d+") == "1") then
         if (LVLSPD_lsElements.showAsBar) then
+            LVLSPD_mainFrame:ClearAllPoints()
             LVLSPD_mainFrame:SetPoint("TOP", 0, 0)
             MinimapCluster:ClearAllPoints()
             MinimapCluster:SetPoint("TOPRIGHT", 0, -25)
             PlayerFrame:ClearAllPoints()
             PlayerFrame:SetPoint("TOPLEFT", 0, -25)
         else
+            LVLSPD_mainFrame:ClearAllPoints()
             LVLSPD_mainFrame:SetPoint("TOP", 0, -25)
             MinimapCluster:ClearAllPoints()
             MinimapCluster:SetPoint("TOPRIGHT", 0, 0)

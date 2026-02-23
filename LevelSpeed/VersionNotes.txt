@@ -2,6 +2,8 @@
 Version 1.1.1
 --------------
     - Fixed bug that reset default UI components on reload if in bar mode
+    - Fixed bug that caused addon to crash and throw a lua error if it was the only addon enabled
+    - Fixed bug where default UI would not set if in bar mode after reload or login
 
 --------------
 Version 1.1.0

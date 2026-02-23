@@ -11,7 +11,6 @@ function LVLSPD_OnLogin()
 	if LVLSPD_lsElements.showTotalXP then
 		LVLSPD_totalXPValue:SetText(LVLSPD_calculateTotalXP())
 	end
-	LVLSPD_setBarFrame()
 	LVLSPD_toggleHideTitle()
 	LVLSPD_setMainFrameSize()
 end
@@ -76,6 +75,7 @@ eventFrame:RegisterEvent("PLAYER_XP_UPDATE")
 eventFrame:RegisterEvent("PLAYER_MONEY")
 eventFrame:RegisterEvent("PLAYER_DEAD")
 eventFrame:RegisterEvent("PLAYER_LOGIN")
+eventFrame:RegisterEvent("ADDON_LOADED")
 eventFrame:RegisterEvent("CHAT_MSG_COMBAT_HONOR_GAIN")
 eventFrame:SetScript("OnEvent", function(a,b,c,d,e,f,g,h,i,j)
 
@@ -245,6 +245,12 @@ if b == "PLAYER_DEAD" then
 
 	if LVLSPD_lsElements.showPlayerDeaths then
 		LVLSPD_playerDeathsValue:SetText(LVLSPD_deathCount)
+	end
+end
+
+if b == "ADDON_LOADED" then
+	if (LVLSPD_lsElements.showAsBar) then
+		LVLSPD_setBarFrame()
 	end
 end
 
