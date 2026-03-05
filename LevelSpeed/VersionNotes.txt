@@ -1,4 +1,10 @@
 --------------
+Version 1.2.0
+--------------
+    - Added text to direct the user to the options menu if no elements are selected to show
+    - Adjusted frame anchors to smooth out transition to and from bar mode
+
+--------------
 Version 1.1.1
 --------------
     - Fixed bug that reset default UI components on reload if in bar mode

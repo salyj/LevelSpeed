@@ -108,6 +108,7 @@ function LVLSPD_setMainFrameSize()
     else
         LVLSPD_mainFrame:SetSize(GetScreenWidth(), 25)
     end
+    LVLSPD_mainFrame:SetPoint("TOP",0, 0)
 end
 
 LVLSPD_mainFrame = CreateFrame("Frame", "mainFrame_LocationMove", UIParent,"InsetFrameTemplate3")
@@ -508,6 +509,17 @@ function LVLSPD_LSCreate_Elements()
         -- print(LVLSPD_numberCreatedElements)
     end
 
+    if LVLSPD_numberCreatedElements == 0 then
+        LVLSPD_optionsAlert = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontRed")
+        LVLSPD_optionsAlert:SetFontHeight(12)
+        LVLSPD_optionsAlert:SetPoint("CENTER", LVLSPD_mainFrame, "CENTER", 0, 0)
+        LVLSPD_optionsAlert:SetText("Go to options to select elements to show!")
+        if not LVLSPD_lsElements.showAsBar then
+            LVLSPD_mainFrame:ClearAllPoints()
+            LVLSPD_mainFrame:SetSize(400, 50)
+        end
+    end
+
     LVLSPD_getStuff()
 end
 
@@ -611,9 +623,14 @@ function LVLSPD_LSHideAllElements()
         LVLSPD_xpPerMinValue:Hide()
         LVLSPD_xpPerMinValue:ClearAllPoints()
     end
+    if(LVLSPD_optionsAlert ~= nil) then
+        LVLSPD_optionsAlert:Hide()
+        LVLSPD_optionsAlert:ClearAllPoints()
+    end
 end
 
 function LVLSPD_LSRebuild_Elements()
+    LVLSPD_mainFrame:ClearAllPoints()
     LVLSPD_LSGetNumberOfElements()
     LVLSPD_setMainFrameSize()
     LVLSPD_LSHideAllElements()
@@ -1163,6 +1180,21 @@ function LVLSPD_LSRebuild_Elements()
 
         LVLSPD_numberCreatedElements = LVLSPD_numberCreatedElements + 1
         -- print(LVLSPD_numberCreatedElements)
+    end
+
+    if LVLSPD_numberCreatedElements == 0 then
+        if (LVLSPD_optionsAlert) then
+            LVLSPD_optionsAlert:SetPoint("CENTER", LVLSPD_mainFrame, "CENTER", 0, 0)
+            LVLSPD_optionsAlert:Show()
+        else
+            LVLSPD_optionsAlert = LVLSPD_mainFrame:CreateFontString("ARTWORK", nil, "GameFontRed")
+            LVLSPD_optionsAlert:SetFontHeight(12)
+            LVLSPD_optionsAlert:SetPoint("CENTER", LVLSPD_mainFrame, "CENTER", 0, 0)
+            LVLSPD_optionsAlert:SetText("Go to options to select elements to show!")
+            if not LVLSPD_lsElements.showAsBar then
+                LVLSPD_mainFrame:SetSize(400, 25)
+            end
+        end
     end
 end
 
