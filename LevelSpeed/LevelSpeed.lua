@@ -86,7 +86,7 @@ if  b == "CHAT_MSG_SYSTEM" and string.find(c, "Experience gained:") then
 	if (UnitXPMax("player") - UnitXP("player")) > tonumber(c) then
 		if LVLSPD_lsElements.showKillsToLevel then
 			if LVLSPD_mob_xp > 0 and LVLSPD_countKills > 0 then
-				LVLSPD_kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")))/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100))
+				LVLSPD_kills_toLevel2:SetText(BreakUpLargeNumbers(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")))/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100)))
 				--xpps3:SetText(math.floor(mob_xp / (time() -start2)*100)/100)
 			else
 				LVLSPD_kills_toLevel2:SetText(0)
@@ -106,12 +106,12 @@ if b == "PLAYER_XP_UPDATE" then
 		
 		if LVLSPD_lsElements.showTimeToLevel then
 			if LVLSPD_XPS > 0 then
-				LVLSPD_kills_toLevel:SetText( math.floor(newLevelMaxXP / LVLSPD_XPS / 60*100)/100 )
+				LVLSPD_kills_toLevel:SetText(BreakUpLargeNumbers(math.floor(newLevelMaxXP / LVLSPD_XPS / 60*100)/100))
 			end
 		end
 		if LVLSPD_lsElements.showKillsToLevel then
 			if LVLSPD_mob_xp > 0 and LVLSPD_countKills > 0 then
-				LVLSPD_kills_toLevel2:SetText(math.ceil(math.floor((newLevelMaxXP/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100)))
+				LVLSPD_kills_toLevel2:SetText(BreakUpLargeNumbers(math.ceil(math.floor((newLevelMaxXP/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100))))
 			end
 		end
 		
@@ -157,15 +157,15 @@ if b == "CHAT_MSG_COMBAT_XP_GAIN"then
 		local xpPerMin = math.floor(LVLSPD_mob_xp / (time() -LVLSPD_start2)*60*100)/100
 
 		if LVLSPD_lsElements.showKillsToLevel then
-			LVLSPD_kills_toLevel2:SetText(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")+c))/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100))
+			LVLSPD_kills_toLevel2:SetText(BreakUpLargeNumbers(math.ceil(math.floor((UnitXPMax("player") - (UnitXP("player")+c))/(LVLSPD_mob_xp / LVLSPD_countKills)*100)/100)))
 		end
 
 		if LVLSPD_lsElements.showFarmXPS then
-			LVLSPD_xpps3:SetText(math.floor(xpPerSec))
+			LVLSPD_xpps3:SetText(BreakUpLargeNumbers(math.floor(xpPerSec)))
 		end
 
 		if LVLSPD_lsElements.showFarmXpPerMin then
-			LVLSPD_farmXpPerMinValue:SetText(xpPerMin)
+			LVLSPD_farmXpPerMinValue:SetText(BreakUpLargeNumbers(xpPerMin))
 		end
 		LVLSPD_updateNums()
 	else
@@ -192,7 +192,7 @@ if b == "CHAT_MSG_COMBAT_HONOR_GAIN" then
 
 	c = c:match("%d+")
 	LS.sessionHonor = LS.sessionHonor + tonumber(c)
-	LVLSPD_sessionHonorValue:SetText(LS.sessionHonor)
+	LVLSPD_sessionHonorValue:SetText(BreakUpLargeNumbers(LS.sessionHonor))
 
 end
 
@@ -291,11 +291,11 @@ function LVLSPD_updateNums()
 	LVLSPD_XPS = LVLSPD_XP / LVLSPD_diffTime
 
 	if LVLSPD_lsElements.showAllXPS then
-		LVLSPD_xpps:SetText(math.floor(LVLSPD_XPS*100)/100)
+		LVLSPD_xpps:SetText(BreakUpLargeNumbers(math.floor(LVLSPD_XPS*100)/100))
 	end
 
 	if LVLSPD_lsElements.showXpPerMin then
-		LVLSPD_xpPerMinValue:SetText((math.floor(LVLSPD_XPS*100)/100) * 60)
+		LVLSPD_xpPerMinValue:SetText(BreakUpLargeNumbers((math.floor(LVLSPD_XPS*100)/100) * 60))
 	end
 	
 	LVLSPD_maxXP = UnitXPMax("player")

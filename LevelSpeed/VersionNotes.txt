@@ -1,4 +1,9 @@
 --------------
+Version 1.2.1
+--------------
+    - Fixed formatting of large numbers on some tracked values.
+
+--------------
 Version 1.2.0
 --------------
     - Added text to direct the user to the options menu if no elements are selected to show
