@@ -1,7 +1,7 @@
-## Interface: 20505
+## Interface: 20506
 
 ## Title: Level Speed - Anniversary Edition
-## Version: 1.2.1
+## Version: 1.2.2
 
 ## Author: HKRob
 
@@ -9,7 +9,7 @@
 ## Note: Finally out of Beta!
 
 ## SavedVariables: 
-## SavedVariablesPerCharacter: LVLSPD_lsElements, LVLSPD_hideTitle, LVLSPD_deathCount
+## SavedVariablesPerCharacter: LVLSPD_lsElements, LVLSPD_hideTitle, LVLSPD_deathCount, LVLSPD_MainFramePoint, LVLSPD_MainFrameX, LVLSPD_MainFrameY
 
 embeds.xml
 

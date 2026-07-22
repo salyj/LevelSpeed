@@ -2,6 +2,9 @@ local numberOfElements = 0
 local currentPoint = {}
 LVLSPD_hideTitle = false
 LVLSPD_numberCreatedElements = 0
+LVLSPD_MainFrameX = 0
+LVLSPD_MainFrameY = -10
+LVLSPD_MainFramePoint = "TOP"
 
 function LVLSPD_getHideTitle()
     return LVLSPD_hideTitle
@@ -87,6 +90,7 @@ function LVLSPD_calculateElementPoint()
 end
 
 function LVLSPD_setMainFrameSize()
+    LVLSPD_mainFrame:ClearAllPoints()
     if (not LVLSPD_lsElements.showAsBar) then
         if( not LVLSPD_hideTitle ) then
             if numberOfElements <= 2 then
@@ -108,11 +112,11 @@ function LVLSPD_setMainFrameSize()
     else
         LVLSPD_mainFrame:SetSize(GetScreenWidth(), 25)
     end
-    LVLSPD_mainFrame:SetPoint("TOP",0, 0)
+    LVLSPD_mainFrame:SetPoint(LVLSPD_MainFramePoint, WorldFrame, LVLSPD_MainFramePoint, LVLSPD_MainFrameX,LVLSPD_MainFrameY)
 end
 
-LVLSPD_mainFrame = CreateFrame("Frame", "mainFrame_LocationMove", UIParent,"InsetFrameTemplate3")
-LVLSPD_mainFrame:SetPoint("TOP",0,-10)
+LVLSPD_mainFrame = CreateFrame("Frame", "mainFrame_LocationMove", WorldFrame,"InsetFrameTemplate3")
+LVLSPD_mainFrame:SetPoint(LVLSPD_MainFramePoint, WorldFrame, LVLSPD_MainFramePoint, LVLSPD_MainFrameX,LVLSPD_MainFrameY)
 
 LVLSPD_mainFrame:SetMovable(true)
 LVLSPD_mainFrame:EnableMouse(true)
@@ -123,6 +127,8 @@ LVLSPD_mainFrame:SetScript("OnDragStart", function(self)
 LVLSPD_mainFrame:SetScript("OnDragStop", function(self)
     self:StopMovingOrSizing()
     LVLSPD_windowLocation = {self:GetPoint()}
+    local point, _, _, x, y = self:GetPoint()
+    LVLSPD_MainFramePoint, LVLSPD_MainFrameX, LVLSPD_MainFrameY = point, x, y
   end)
 
 if( not LVLSPD_hideTitle ) then
