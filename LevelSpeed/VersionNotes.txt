@@ -1,4 +1,15 @@
 --------------
+Version 1.2.3
+--------------
+    - Updated Classic Era interface version.
+
+--------------
+Version 1.2.2
+--------------
+    - Fixed bug that caused frame to reposition on reload
+    - Updated Classic Era interface version.
+
+--------------
 Version 1.2.1
 --------------
     - Fixed formatting of large numbers on some tracked values.
